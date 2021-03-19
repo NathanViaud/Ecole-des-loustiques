@@ -1,4 +1,4 @@
-package fr.iut2.androidtp;
+package com.example.projet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,10 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.projet.Data.Multiplication;
+import com.example.projet.Data.TableDeMultiplication;
+
 import java.util.ArrayList;
 
-import fr.iut2.androidtp.exercice3Data.Multiplication;
-import fr.iut2.androidtp.exercice3Data.TableDeMultiplication;
+
+
+
+
 
 public class TableMultActivity extends AppCompatActivity {
 
