@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MathsEx2Activity">
+
+    <TextView
+        android:id="@+id/Exercice2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Exercice 2"
+        android:textSize="32dp"
+        android:gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:id="@+id/line"
+        android:layout_below="@+id/Exercice2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/ex2Req"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" x+ y ="/>
+        <EditText
+            android:inputType="numberSigned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ex2Res"/>
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_below="@+id/line"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:onClick="Precedent"
+            android:layout_below="@+id/line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="Précedent"/>
+        <Button
+            android:text="Suivant"
+            android:layout_marginLeft="5dp"
+            android:onClick="Suivant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

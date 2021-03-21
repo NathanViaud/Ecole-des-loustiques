@@ -25,4 +25,9 @@ public class MathsActivity extends AppCompatActivity {
         });
 
     }
+
+    public void Exercice2(View view){
+        Intent intent = new Intent(this, MathsEx2Selection.class);
+        startActivity(intent);
+    }
 }
