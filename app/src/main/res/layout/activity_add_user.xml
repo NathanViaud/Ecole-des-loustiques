@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textSize="32sp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Veuillez écrire votre nom et prénom"
+        />
+
+
+    <LinearLayout
+        android:layout_marginTop="50sp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nom :"
+            android:textSize="28sp"
+            />
+        <EditText
+            android:id="@+id/dbNom"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prénom :"
+            android:textSize="28sp"
+            />
+        <EditText
+            android:id="@+id/dbPrenom"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+
+
+    <Button
+        android:layout_marginTop="50sp"
+        android:id="@+id/sauvUser"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:text="Sauvegarder"
+        />
+
+
+
+</LinearLayout>
