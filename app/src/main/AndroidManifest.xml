@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Projet">
-        <activity android:name=".MathsEx2Selection"></activity>
-        <activity android:name=".MathsEx2FinActivity" />
+        <activity android:name=".MathsEx2FelActivity"></activity>
+        <activity android:name=".MathsEx2Selection" />
+        <activity android:name=".MathsEx2ErreursActivity" />
         <activity android:name=".MathsEx2Activity" />
         <activity android:name=".CultureActivity" />
         <activity android:name=".MathsActivity" />

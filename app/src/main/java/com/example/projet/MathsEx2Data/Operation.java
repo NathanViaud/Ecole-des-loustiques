@@ -11,8 +11,13 @@ public class Operation {
 
     public Operation(int operande, char type){
         this.operande = operande;
-        this.op1 = getRandomNumberInRange(0, operande);
-        this.op2 = getRandomNumberInRange(0, operande);
+        this.op1 = getRandomNumberInRange(1, operande);
+        this.op2 = getRandomNumberInRange(1, operande);
+        if(this.op2 > this.op1){
+            int sauv = op1;
+            op1 = op2;
+            op2 = sauv;
+        }
         switch (type){
             case '+':
                 this.res = op1+op2;
@@ -50,4 +55,5 @@ public class Operation {
         Random r = new Random();
         return r.nextInt((max-min)+1)+min;
     }
+
 }

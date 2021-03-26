@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MathsEx2FinActivity">
+    tools:context=".MathsEx2ErreursActivity">
 
     <TextView
         android:id="@+id/fin"
@@ -20,4 +20,18 @@
         android:gravity="center"
         android:text="Nombres d'erreurs :"
         android:id="@+id/nb_erreurs"/>
+    <Button
+        android:onClick="Correct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nb_erreurs"
+        android:text="Corriger mes erreurs"/>
+
+    <Button
+        android:onClick="Change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Changer d'exercice"/>
+
 </RelativeLayout>

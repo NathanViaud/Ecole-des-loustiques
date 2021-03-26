@@ -15,44 +15,60 @@
         android:gravity="center_horizontal"/>
 
     <LinearLayout
-        android:gravity="center_horizontal"
-        android:id="@+id/line"
+        android:gravity="center"
         android:layout_below="@+id/Exercice2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <TextView
-            android:id="@+id/ex2Req"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" x+ y ="/>
-        <EditText
-            android:inputType="numberSigned"
-            android:layout_width="wrap_content"
+            android:id="@+id/index"
+            android:text="1/10"/>
+        <LinearLayout
+            android:gravity="center"
+            android:id="@+id/line"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ex2Res"/>
-    </LinearLayout>
-    <LinearLayout
-        android:gravity="center"
-        android:layout_below="@+id/line"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:onClick="Precedent"
+            android:orientation="horizontal">
+            <TextView
+                android:textSize="28dp"
+                android:id="@+id/ex2Req"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" x+ y ="/>
+            <EditText
+                android:textSize="28dp"
+                android:inputType="numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ex2Res"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
             android:layout_below="@+id/line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:text="Précedent"/>
-        <Button
-            android:text="Suivant"
-            android:layout_marginLeft="5dp"
-            android:onClick="Suivant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:onClick="Precedent"
+                android:layout_below="@+id/line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="Précedent"/>
+            <Button
+                android:text="Suivant"
+                android:layout_marginLeft="5dp"
+                android:onClick="Suivant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
+        </LinearLayout>
     </LinearLayout>
+
+
 
 
 </RelativeLayout>

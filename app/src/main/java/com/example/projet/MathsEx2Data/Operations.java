@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class Operations {
-    private int index =0;
+    private int size = 0;
     private int operande;
     private ArrayList<Operation> m_operations = new ArrayList<>();
     private int nb_erreurs = 0;
@@ -25,11 +25,9 @@ public class Operations {
         return m_operations.get(index);
     }
 
-    public void MAJ(){
-        this.index ++;
-    }
 
     public void correction(){
+        nb_erreurs = 0;
         for(int i =0;i<m_operations.size();i++){
             if(!m_operations.get(i).Correction(u_res.get(i))){
                 nb_erreurs++;
@@ -39,12 +37,34 @@ public class Operations {
 
     public void addRes(int res){
         u_res.add(res);
+        this.size ++;
     }
 
-    public void removeRes(){u_res.remove(0);}
+    public boolean existe(int i){
+        if(i >= u_res.size()){
+            return false;
+        } else{
+            return true;
+        }
+    }
+
+    public void removeRes(int i){u_res.remove(i);}
 
     public int getNbErreurs(){
         return this.nb_erreurs;
+    }
+
+    public void setRes(int index, int res){
+        try {
+            u_res.set(index, res);
+        } catch (IndexOutOfBoundsException e){
+            u_res.add(res);
+        }
+
+    }
+
+    public int getResAt(int index){
+        return u_res.get(index);
     }
 
     public char getType(){return this.type;}
