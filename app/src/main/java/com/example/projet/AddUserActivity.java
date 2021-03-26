@@ -20,7 +20,6 @@ public class AddUserActivity extends AppCompatActivity {
     // VIEW
     private EditText editTextUserView;
     private EditText editTextPrenomView;
-    private EditText editTextFinishByView;
     private Button saveView;
 
     @Override
