@@ -109,4 +109,10 @@ public class MathsEx2Activity extends AppCompatActivity {
 
         }
     }
+
+    public boolean onKeyUp(int keyCode, android.view.KeyEvent event) {
+        EditText resView = findViewById(R.id.ex2Res);
+        resView.setTextColor(defaultColor);
+        return false;
+    };
 }
