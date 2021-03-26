@@ -3,6 +3,7 @@ package com.example.projet;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class MathsEx2Activity extends AppCompatActivity {
     private int index = 0;
     private char type;
     private int ordre;
+    private ColorStateList defaultColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,9 @@ public class MathsEx2Activity extends AppCompatActivity {
 
         m_operations = new Operations(ordre, type);
         TextView calcul = findViewById(R.id.ex2Req);
+        EditText resView = findViewById(R.id.ex2Res);
         calcul.setText(m_operations.getOperation(index).getOp1() +" "+ m_operations.getType() +" " + m_operations.getOperation(index).getOp2()+ " = ");
+        defaultColor = resView.getTextColors();
     }
 
     public void Suivant(View view){
@@ -76,7 +80,7 @@ public class MathsEx2Activity extends AppCompatActivity {
         EditText resView = findViewById(R.id.ex2Res);
         TextView calculView = findViewById(R.id.ex2Req);
         TextView indexView = findViewById(R.id.index);
-        resView.setTextColor(Color.WHITE);
+        resView.setTextColor(defaultColor);
         if(index <10) {
             if(m_operations.existe(index) && m_operations.getResAt(index)!=-1){
                 resView.setText(String.valueOf(m_operations.getResAt(index)));
