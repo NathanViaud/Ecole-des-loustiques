@@ -31,6 +31,8 @@ public class MathsEx2ErreursActivity extends AppCompatActivity {
     }
 
     public void Correct(View view){
+        //MathsEx2Activity.maj();
+        //MathsEx2Activity.correction = true;
         super.finish();
     }
 }

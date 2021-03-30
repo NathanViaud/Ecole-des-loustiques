@@ -66,6 +66,15 @@
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
+        <TextView
+            android:id="@+id/mode_correction"
+            android:visibility="invisible"
+            android:textColor="@color/teal_700"
+            android:textSize="23dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mode Correction Activé"/>
     </LinearLayout>
 
 

@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.projet.MathsEx2Data.Operations;
@@ -24,6 +25,10 @@ public class MathsEx2Activity extends AppCompatActivity {
     private char type;
     private int ordre;
     private ColorStateList defaultColor;
+
+    private boolean correction = false;
+
+    private boolean fin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,17 +87,7 @@ public class MathsEx2Activity extends AppCompatActivity {
         TextView indexView = findViewById(R.id.index);
         resView.setTextColor(defaultColor);
         if(index <10) {
-            if(m_operations.existe(index) && m_operations.getResAt(index)!=-1){
-                resView.setText(String.valueOf(m_operations.getResAt(index)));
-                if(!m_operations.getOperation(index).Correction(m_operations.getResAt(index))){
-                    resView.setTextColor(Color.RED);
-                }
-
-            } else{
-                resView.setText("");
-            }
-            calculView.setText(m_operations.getOperation(index).getOp1() + " "+ m_operations.getType() + " " + m_operations.getOperation(index).getOp2() + "= ");
-            indexView.setText(String.valueOf(index+1) + "/10");
+            correct();
 
         } else{
             m_operations.correction();
@@ -101,6 +96,7 @@ public class MathsEx2Activity extends AppCompatActivity {
                 Intent intent = new Intent(this, MathsEx2ErreursActivity.class);
                 intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreur);
                 startActivity(intent);
+                fin = true;
                 index --;
             } else{
                 Intent intent = new Intent(this, MathsEx2FelActivity.class);
@@ -110,9 +106,48 @@ public class MathsEx2Activity extends AppCompatActivity {
         }
     }
 
+
+    /*
+    * Enlever la couleur rouge de l'input lorsqu'on écrit dedans
+    * */
     public boolean onKeyUp(int keyCode, android.view.KeyEvent event) {
+        super.onKeyUp(keyCode, event);
         EditText resView = findViewById(R.id.ex2Res);
         resView.setTextColor(defaultColor);
         return false;
     };
+
+    public void correct (){
+        EditText resView = findViewById(R.id.ex2Res);
+        TextView calculView = findViewById(R.id.ex2Req);
+        TextView indexView = findViewById(R.id.index);
+        resView.setTextColor(defaultColor);
+            if(m_operations.existe(index) && m_operations.getResAt(index)!=-1){
+                resView.setText(String.valueOf(m_operations.getResAt(index)));
+                if(!m_operations.getOperation(index).Correction(m_operations.getResAt(index)) && correction == true){
+                    resView.setTextColor(Color.RED);
+                } else if (m_operations.getOperation(index).Correction(m_operations.getResAt(index)) && correction == true){
+                    resView.setTextColor(Color.GREEN);
+                }
+
+            } else{
+                resView.setText("");
+            }
+            calculView.setText(m_operations.getOperation(index).getOp1() + " "+ m_operations.getType() + " " + m_operations.getOperation(index).getOp2() + "= ");
+            indexView.setText(String.valueOf(index+1) + "/10");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(fin){
+            correction = true;
+
+            View modeCorrection = findViewById(R.id.mode_correction);
+            modeCorrection.setVisibility(View.VISIBLE);
+
+            correct();
+        }
+
+    }
 }
