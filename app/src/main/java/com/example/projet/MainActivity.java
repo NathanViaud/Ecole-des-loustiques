@@ -81,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
                 // Message
                 Toast.makeText(MainActivity.this, "LongClick : " + user.getNom(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, JouerActivity.class);
+                Intent intent = new Intent(MainActivity.this, GestionCompteActivity.class);
+                //intent.putExtra(GestionCompteActivity.USER_KEY, user);
                 startActivity(intent);
                 return false;
             }
@@ -129,21 +130,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // Mise à jour des taches
+        // Mise à jour des users
         getUsers();
 
     }
 
-    //    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == REQUEST_CODE_ADD && resultCode == RESULT_OK) {
-//
-//            // Mise à jour des taches
-//            getTasks();
-//        }
-//    }
 
     public void accueilValider(View view){
         Intent intent = new Intent(this, JouerActivity.class);

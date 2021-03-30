@@ -18,7 +18,6 @@ public class User implements Serializable {
     @ColumnInfo(name = "nom")
     private String nom;
 
-
     /*
      * Getters and Setters
      * */

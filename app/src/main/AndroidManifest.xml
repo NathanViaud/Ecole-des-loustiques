@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Projet">
         <activity android:name=".MathsEx2FelActivity"></activity>
+        <activity android:name=".GestionCompteActivity" />
         <activity android:name=".AddUserActivity" />
         <activity android:name=".MathsEx2Selection" />
         <activity android:name=".MathsEx2ErreursActivity" />
