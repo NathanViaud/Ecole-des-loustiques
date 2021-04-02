@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projet.db.DatabaseClient;
@@ -17,9 +18,11 @@ public class GestionCompteActivity extends AppCompatActivity {
     // DATA
     private DatabaseClient mDb;
 
-    //public static final User USER_KEY = new User();
     // VIEW
     private Button deleteView, retourView;
+    private TextView Utilisateur;
+
+    private User userC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +32,16 @@ public class GestionCompteActivity extends AppCompatActivity {
         // Récupération du DatabaseClient
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
-        //User userCour = getIntent().get(USER_KEY);
         // Récupérer les vues
         deleteView = findViewById(R.id.supprCompte);
         retourView = findViewById(R.id.retour);
+        Utilisateur = findViewById(R.id.compteDE);
+
+        //Récupération de l'utilisateur courrant avec MyApplication
+        userC = ((MyApplication) this.getApplication()).getUserCourrant(); //a instancier dans le onCreate sinon l'instanciation
+        // de la classe MyApp marche pas car elle n'est pas connu
+
+        Utilisateur.setText("Compte de "+userC.getPrenom());
 
         // Associer un événement au bouton save
         deleteView.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +71,7 @@ public class GestionCompteActivity extends AppCompatActivity {
             protected User doInBackground(Void... voids) {
 
                 // creating a task
-                User user = new User();
+                User user = userC;
 
                 // adding to database
                 mDb.getAppDatabase()

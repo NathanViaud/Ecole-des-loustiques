@@ -31,13 +31,17 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonAdd;
     private ListView listUser;
 
+    private  MyApplication myapp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDb = DatabaseClient.getInstance(getApplicationContext());
 
+
+        mDb = DatabaseClient.getInstance(getApplicationContext());
+        myapp = ((MyApplication) this.getApplication());
         // Récupérer les vues
         listUser = findViewById(R.id.listUser);
         buttonAdd = findViewById(R.id.creerCmpt);
@@ -62,9 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
                 // Récupération de la tâche cliquée à l'aide de l'adapter
                 User user = adapter.getItem(position);
-
                 // Message
-                Toast.makeText(MainActivity.this, "Click : " + user.getNom(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Click : " + user.getPrenom(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, JouerActivity.class);
                 startActivity(intent);
             }
@@ -78,31 +81,29 @@ public class MainActivity extends AppCompatActivity {
 
                 // Récupération de la tâche cliquée à l'aide de l'adapter
                 User user = adapter.getItem(position);
-
+                myapp.setUserCourrant(user);
                 // Message
-                Toast.makeText(MainActivity.this, "LongClick : " + user.getNom(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "LongClick : " + user.getPrenom(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, GestionCompteActivity.class);
-                //intent.putExtra(GestionCompteActivity.USER_KEY, user);
+
                 startActivity(intent);
                 return false;
             }
         });
 
-        // Mise à jour des taches
-        //getTasks();
     }
 
     private void getUsers() {
         ///////////////////////
-        // Classe asynchrone permettant de récupérer des taches et de mettre à jour le listView de l'activité
-        class GetTasks extends AsyncTask<Void, Void, List<User>> {
+        // Classe asynchrone permettant de récupérer des users et de mettre à jour le listView de l'activité
+        class GetUsers extends AsyncTask<Void, Void, List<User>> {
 
             @Override
             protected List<User> doInBackground(Void... voids) {
-                List<User> taskList = mDb.getAppDatabase()
+                List<User> usersList = mDb.getAppDatabase()
                         .UserDao()
                         .getAll();
-                return taskList;
+                return usersList;
             }
 
             @Override
@@ -120,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
 
         //////////////////////////
         // IMPORTANT bien penser à executer la demande asynchrone
-        // Création d'un objet de type GetTasks et execution de la demande asynchrone
-        GetTasks gt = new GetTasks();
+        // Création d'un objet de type GetUsers et execution de la demande asynchrone
+        GetUsers gt = new GetUsers();
         gt.execute();
     }
 
