@@ -18,7 +18,7 @@ public class AddUserActivity extends AppCompatActivity {
     private DatabaseClient mDb;
 
     // VIEW
-    private EditText editTextUserView;
+    private EditText editTextNomView;
     private EditText editTextPrenomView;
     private Button saveView;
 
@@ -31,7 +31,7 @@ public class AddUserActivity extends AppCompatActivity {
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
         // Récupérer les vues
-        editTextUserView = findViewById(R.id.dbNom);
+        editTextNomView = findViewById(R.id.dbNom);
         editTextPrenomView = findViewById(R.id.dbPrenom);
         saveView = findViewById(R.id.sauvUser);
 
@@ -47,13 +47,13 @@ public class AddUserActivity extends AppCompatActivity {
     private void saveUser() {
 
         // Récupérer les informations contenues dans les vues
-        final String sNom = editTextUserView.getText().toString().trim();
+        final String sNom = editTextNomView.getText().toString().trim();
         final String sPrenom = editTextPrenomView.getText().toString().trim();
 
         // Vérifier les informations fournies par l'utilisateur
         if (sNom.isEmpty()) {
-            editTextUserView.setError("Nom required");
-            editTextUserView.requestFocus();
+            editTextNomView.setError("Nom required");
+            editTextNomView.requestFocus();
             return;
         }
 
@@ -73,8 +73,8 @@ public class AddUserActivity extends AppCompatActivity {
 
                 // creating a task
                 User user = new User();
-                user.setPrenom(sNom);
-                user.setNom(sPrenom);
+                user.setPrenom(sPrenom);
+                user.setNom(sNom);
 
                 // adding to database
                 mDb.getAppDatabase()
