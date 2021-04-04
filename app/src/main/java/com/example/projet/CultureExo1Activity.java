@@ -14,7 +14,8 @@ import android.widget.TextView;
 
 import com.example.projet.CultureEx1Data.Quizz;
 
-public class CultureEx1Activity extends AppCompatActivity {
+
+public class CultureExo1Activity extends AppCompatActivity {
 
     private int index;
     private Quizz m_quizz;
@@ -29,14 +30,18 @@ public class CultureEx1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_culture_ex1);
+        setContentView(R.layout.activity_culture_exo1);
         index =0;
         m_quizz = new Quizz();
         EditText resView = findViewById(R.id.CEx1Res);
         ImageView drapeau = findViewById(R.id.drapeau);
-        String img = drapeau +"png";
-        drapeau.setImageResource(R.drawable.chine);
+
+        String ressourceName = m_quizz.getDrapeau(index);
+        int resID = getResources().getIdentifier(ressourceName , "drawable", this.getPackageName());
+        drapeau.setImageResource(resID);
         defaultColor = resView.getTextColors();
+        TextView drap = findViewById(R.id.Exercice1);
+        drap.setText(ressourceName);
     }
 
     public void Suivant(View view){
@@ -68,13 +73,13 @@ public class CultureEx1Activity extends AppCompatActivity {
         } else{
             int erreur = m_quizz.Correction();
             if(erreur>0){
-                Intent intent = new Intent(this, MathsEx2ErreursActivity.class);
+                Intent intent = new Intent(this, CultureExo1ErreurActivity.class);
                 intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreur);
                 startActivity(intent);
                 fin = true;
                 index --;
             } else{
-                Intent intent = new Intent(this, MathsEx2FelActivity.class);
+                Intent intent = new Intent(this, CultureExo1FelActivity.class);
                 startActivity(intent);
             }
 
@@ -94,17 +99,21 @@ public class CultureEx1Activity extends AppCompatActivity {
         TextView indexView = findViewById(R.id.index);
         resView.setTextColor(defaultColor);
         resView.setText(m_quizz.getResAt(index));
-            if(!m_quizz.correct(index) && correction == true){
-                resView.setTextColor(Color.RED);
-            } else if (m_quizz.correct(index) && correction == true){
-                resView.setTextColor(Color.GREEN);
-            }
+        if(!m_quizz.correct(index) && correction == true){
+            resView.setTextColor(Color.RED);
+        } else if (m_quizz.correct(index) && correction == true){
+            resView.setTextColor(Color.GREEN);
+        }
 
-         if(m_quizz.getResAt(index) == "null"){
+        if(m_quizz.getResAt(index).equals("null")){
             resView.setText("");
         }
-         drapeau.setImageDrawable(Drawable.createFromPath(m_quizz.getDrapeau(index)+".png"));
+        String ressourceName = m_quizz.getDrapeau(index);
+        int resID = getResources().getIdentifier(ressourceName , "drawable", this.getPackageName());
+        drapeau.setImageResource(resID);
         indexView.setText(String.valueOf(index+1) + "/10");
+        TextView drap = findViewById(R.id.Exercice1);
+        drap.setText(ressourceName);
     }
 
     @Override
@@ -112,10 +121,8 @@ public class CultureEx1Activity extends AppCompatActivity {
         super.onStart();
         if(fin){
             correction = true;
-
             View modeCorrection = findViewById(R.id.mode_correction);
             modeCorrection.setVisibility(View.VISIBLE);
-
             correct();
         }
 

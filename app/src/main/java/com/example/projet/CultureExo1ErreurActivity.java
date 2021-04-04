@@ -7,24 +7,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class MathsEx2ErreursActivity extends AppCompatActivity {
+public class CultureExo1ErreurActivity extends AppCompatActivity {
 
     public static final String NB_ERR = "nb_err";
-    private int erreur;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maths_ex2_erreurs);
+        setContentView(R.layout.activity_culture_exo1_erreur);
 
-        erreur = getIntent().getIntExtra(NB_ERR, 0);
+        int erreur = getIntent().getIntExtra(NB_ERR, 0);
 
         TextView viewErreur = findViewById(R.id.nb_erreurs);
 
-        viewErreur.setText("Nombres d'erreurs : "+erreur);
+        viewErreur.setText("Nombres d'erreurs : "+ erreur);
     }
-
     public void Change(View view){
         Intent intent = new Intent(this, JouerActivity.class);
         startActivity(intent);

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CultureExo1ErreurActivity">
+
+    <TextView
+        android:id="@+id/fin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="32dp"
+        android:text="Fin"/>
+    <TextView
+        android:layout_below="@+id/fin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Nombres d'erreurs :"
+        android:id="@+id/nb_erreurs"/>
+    <Button
+        android:onClick="Correct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nb_erreurs"
+        android:text="Corriger mes erreurs"/>
+
+    <Button
+        android:onClick="Change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Changer d'exercice"/>
+
+</RelativeLayout>

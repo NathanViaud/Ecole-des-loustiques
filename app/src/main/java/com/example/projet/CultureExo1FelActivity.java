@@ -6,16 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class CultureActivity extends AppCompatActivity {
+public class CultureExo1FelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_culture);
+        setContentView(R.layout.activity_culture_exo1_fel);
     }
 
-    public void Exercice1(View view){
-        Intent intent = new Intent(this, CultureExo1Activity.class);
+    public void Return(View view){
+        Intent intent = new Intent(this, JouerActivity.class);
         startActivity(intent);
     }
 }

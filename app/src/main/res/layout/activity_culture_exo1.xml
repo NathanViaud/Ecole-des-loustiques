@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MathsEx2Activity">
+    tools:context=".CultureExo1Activity">
 
     <TextView
-        android:id="@+id/Exercice2"
+        android:id="@+id/Exercice1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Exercice 2"
+        android:text="Exercice 1"
         android:textSize="32dp"
-        android:gravity="center_horizontal"/>
-
+        android:gravity="center"/>
     <LinearLayout
-        android:gravity="center"
-        android:layout_below="@+id/Exercice2"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/Exercice1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical">
         <TextView
             android:textSize="20dp"
@@ -26,26 +26,17 @@
             android:layout_height="wrap_content"
             android:id="@+id/index"
             android:text="1/10"/>
-        <LinearLayout
-            android:gravity="center"
-            android:id="@+id/line"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/drapeau"
+            android:src="@drawable/france"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:hint="?"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:textSize="28dp"
-                android:id="@+id/ex2Req"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" x+ y ="/>
-            <EditText
-                android:hint="?"
-                android:textSize="28dp"
-                android:inputType="numberSigned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ex2Res"/>
-        </LinearLayout>
+            android:textSize="28dp"
+            android:id="@+id/CEx1Res"/>
         <LinearLayout
             android:gravity="center"
             android:layout_below="@+id/line"
@@ -76,9 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mode Correction Activé"/>
+
     </LinearLayout>
-
-
 
 
 </RelativeLayout>
