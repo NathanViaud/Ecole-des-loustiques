@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
         mDb = DatabaseClient.getInstance(getApplicationContext());
         myapp = ((MyApplication) this.getApplication());
         // Récupérer les vues

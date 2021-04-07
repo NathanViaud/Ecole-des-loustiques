@@ -19,10 +19,12 @@ public class GestionCompteActivity extends AppCompatActivity {
     private DatabaseClient mDb;
 
     // VIEW
-    private Button deleteView, retourView;
-    private TextView Utilisateur;
+    private Button deleteView, retourView, modifView;
+    private TextView NomU, PrenomU, IdU;
+    private EditText NomET, PrenomET;
 
     private User userC;
+    private boolean isModif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,19 +37,65 @@ public class GestionCompteActivity extends AppCompatActivity {
         // Récupérer les vues
         deleteView = findViewById(R.id.supprCompte);
         retourView = findViewById(R.id.retour);
-        Utilisateur = findViewById(R.id.compteDE);
+        modifView = findViewById(R.id.modifCompte);
+
+        NomU = findViewById(R.id.nomG);
+        PrenomU = findViewById(R.id.prenomG);
+        IdU = findViewById(R.id.idG);
+
+        NomET = findViewById(R.id.nomGtext);
+        PrenomET = findViewById(R.id.prenomGtext);
+
 
         //Récupération de l'utilisateur courrant avec MyApplication
         userC = ((MyApplication) this.getApplication()).getUserCourrant(); //a instancier dans le onCreate sinon l'instanciation
         // de la classe MyApp marche pas car elle n'est pas connu
 
-        Utilisateur.setText("Compte de "+userC.getPrenom());
+        isModif = false;
+
+        PrenomU.setText("Prénom : "+userC.getPrenom());
+        NomU.setText("Nom : "+userC.getNom());
+        IdU.setText("ID : "+userC.getId());
 
         // Associer un événement au bouton save
         deleteView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 deleteUser();
+            }
+        });
+
+        modifView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isModif == false){
+                    NomU.setText("Nom : ");
+                    NomET.setVisibility(View.VISIBLE);
+                    NomET.setText(userC.getNom());
+
+                    PrenomU.setText("Prénom : ");
+                    PrenomET.setVisibility(View.VISIBLE);
+                    PrenomET.setText(userC.getPrenom());
+
+                    modifView.setText("Fini");
+                    isModif = true;
+                }else {
+                    updateUser();
+                    userC.setNom(NomET.getText().toString());
+                    userC.setPrenom(PrenomET.getText().toString());
+
+                    NomU.setText("Nom : "+userC.getNom());
+                    NomET.setVisibility(View.INVISIBLE);
+                    NomET.setText(" ");
+
+                    PrenomU.setText("Prénom : "+userC.getPrenom());
+                    PrenomET.setVisibility(View.INVISIBLE);
+                    PrenomET.setText(" ");
+
+                    modifView.setText("Modifier");
+                    isModif = false;
+                }
+
             }
         });
 
@@ -94,6 +142,47 @@ public class GestionCompteActivity extends AppCompatActivity {
         //////////////////////////
         // IMPORTANT bien penser à executer la demande asynchrone
         DeleteUser st = new DeleteUser();
+        st.execute();
+    }
+
+    private void updateUser() {
+
+        // Récupérer les informations contenues dans les vues
+        final String sNom = NomET.getText().toString().trim();
+        final String sPrenom = PrenomET.getText().toString().trim();
+
+        /**
+         * Création d'une classe asynchrone pour supprimer la tache donnée par l'utilisateur
+         */
+        class UpdateUser extends AsyncTask<Void, Void, User> {
+
+            @Override
+            protected User doInBackground(Void... voids) {
+
+                // creating a task
+                User user = userC;
+                user.setPrenom(sPrenom);
+                user.setNom(sNom);
+
+                // adding to database
+                mDb.getAppDatabase()
+                        .UserDao()
+                        .update(user);
+
+                return user;
+            }
+
+            @Override
+            protected void onPostExecute(User user) {
+                super.onPostExecute(user);
+
+                Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        //////////////////////////
+        // IMPORTANT bien penser à executer la demande asynchrone
+        UpdateUser st = new UpdateUser();
         st.execute();
     }
 
