@@ -12,34 +12,20 @@ public class Quizz {
     private ArrayList<String> drapeaux = new ArrayList<String>() {{
 
         add("france");
-
         add("allemagne");
-
         add("argentine");
-
         add("belgique");
-
         add("bresil");
-
         add("canada");
-
         add("chine");
-
         add("espagne");
-
         add("inde");
-
         add("irlande");
-
         add("italie");
-
         add("japon");
-
         add("portugal");
-
         add("russie");
         add("royaume_unis");
-
         add("etats_unis");
 
     }};
@@ -65,7 +51,7 @@ public class Quizz {
         return m_quizz.get(index);
     }
 
-    public int Correction(){
+    public int getNbErreurs(){
         int nb_erreurs =0;
 
         // comparaison ignorant les accents et les majuscules

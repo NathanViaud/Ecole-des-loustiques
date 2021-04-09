@@ -11,13 +11,25 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/valider">
+        android:layout_above="@+id/mode_correction">
         <LinearLayout
             android:id="@+id/operationsT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
     </ScrollView>
+
+
+    <TextView
+        android:id="@+id/mode_correction"
+        android:textColor="@color/teal_700"
+        android:layout_centerHorizontal="true"
+        android:textSize="23dp"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/valider"
+        android:text="Mode correction activé"/>
 
     <Button
         android:id="@+id/valider"

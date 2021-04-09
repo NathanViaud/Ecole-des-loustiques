@@ -126,8 +126,10 @@ public class MathsEx2Activity extends AppCompatActivity {
                 resView.setText(String.valueOf(m_operations.getResAt(index)));
                 if(!m_operations.getOperation(index).Correction(m_operations.getResAt(index)) && correction == true){
                     resView.setTextColor(Color.RED);
+                    majIndex();
                 } else if (m_operations.getOperation(index).Correction(m_operations.getResAt(index)) && correction == true){
                     resView.setTextColor(Color.GREEN);
+                    majIndex();
                 }
 
             } else{
@@ -147,7 +149,27 @@ public class MathsEx2Activity extends AppCompatActivity {
             modeCorrection.setVisibility(View.VISIBLE);
 
             correct();
+            majIndex();
         }
 
+    }
+
+    public void majIndex(){
+        LinearLayout indexTview = findViewById(R.id.indexT);
+        indexTview.removeAllViews();
+        for (int i=0;i<10;i++){
+
+            LinearLayout indexTemplate = (LinearLayout)getLayoutInflater().inflate(R.layout.template_index, null);
+
+            TextView indexView = indexTemplate.findViewById(R.id.index);
+            String indexString = Integer.toString(i+1);
+            indexView.setText(indexString);
+            if(m_operations.getOperation(i).Correction(m_operations.getResAt(i))){
+                indexView.setTextColor(Color.GREEN);
+            } else{
+                indexView.setTextColor(Color.RED);
+            }
+            indexTview.addView(indexTemplate);
+        }
     }
 }

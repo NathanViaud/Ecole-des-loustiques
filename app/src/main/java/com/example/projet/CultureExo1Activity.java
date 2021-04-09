@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.projet.CultureEx1Data.Quizz;
+import com.example.projet.Data.Multiplication;
 
 
 public class CultureExo1Activity extends AppCompatActivity {
@@ -21,7 +23,7 @@ public class CultureExo1Activity extends AppCompatActivity {
     private Quizz m_quizz;
     private ColorStateList defaultColor;
 
-    private boolean correction = false;
+    private boolean mode_correction = false;
 
     private boolean fin = false;
 
@@ -68,10 +70,10 @@ public class CultureExo1Activity extends AppCompatActivity {
         TextView indexView = findViewById(R.id.index);
         resView.setTextColor(defaultColor);
         if(index <10) {
-            correct();
+            majGraph();
 
         } else{
-            int erreur = m_quizz.Correction();
+            int erreur = m_quizz.getNbErreurs();
             if(erreur>0){
                 Intent intent = new Intent(this, CultureExo1ErreurActivity.class);
                 intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreur);
@@ -93,21 +95,24 @@ public class CultureExo1Activity extends AppCompatActivity {
         return false;
     };
 
-    public void correct (){
+    public void majGraph (){
         EditText resView = findViewById(R.id.CEx1Res);
         ImageView drapeau = findViewById(R.id.drapeau);
         TextView indexView = findViewById(R.id.index);
         resView.setTextColor(defaultColor);
         resView.setText(m_quizz.getResAt(index));
-        if(!m_quizz.correct(index) && correction == true){
+        if(!m_quizz.correct(index) && mode_correction == true){
             resView.setTextColor(Color.RED);
-        } else if (m_quizz.correct(index) && correction == true){
+            majIndex();
+        } else if (m_quizz.correct(index) && mode_correction == true){
             resView.setTextColor(Color.GREEN);
+            majIndex();
         }
 
         if(m_quizz.getResAt(index).equals("null")){
             resView.setText("");
         }
+
         String ressourceName = m_quizz.getDrapeau(index);
         int resID = getResources().getIdentifier(ressourceName , "drawable", this.getPackageName());
         drapeau.setImageResource(resID);
@@ -120,11 +125,30 @@ public class CultureExo1Activity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(fin){
-            correction = true;
+            mode_correction = true;
             View modeCorrection = findViewById(R.id.mode_correction);
             modeCorrection.setVisibility(View.VISIBLE);
-            correct();
+            majGraph();
+            majIndex();
         }
+    }
 
+    public void majIndex(){
+        LinearLayout indexTview = findViewById(R.id.indexT);
+        indexTview.removeAllViews();
+        for (int i=0;i<10;i++){
+
+            LinearLayout indexTemplate = (LinearLayout)getLayoutInflater().inflate(R.layout.template_index, null);
+
+            TextView indexView = indexTemplate.findViewById(R.id.index);
+            String indexString = Integer.toString(i+1);
+            indexView.setText(indexString);
+            if(m_quizz.correct(i)){
+                indexView.setTextColor(Color.GREEN);
+            } else{
+                indexView.setTextColor(Color.RED);
+            }
+            indexTview.addView(indexTemplate);
+        }
     }
 }
