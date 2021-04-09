@@ -18,4 +18,9 @@ public class CultureActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CultureExo1Activity.class);
         startActivity(intent);
     }
+
+    public void Exercice2(View view){
+        Intent intent = new Intent(this, CultureExo2Activity.class);
+        startActivity(intent);
+    }
 }

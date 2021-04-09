@@ -12,6 +12,7 @@
         android:theme="@style/Theme.Projet">
         <activity android:name=".CultureExo1FelActivity"></activity>
         <activity android:name=".CultureExo1ErreurActivity" />
+        <activity android:name=".CultureExo2Activity" />
         <activity android:name=".CultureExo1Activity" />
         <activity android:name=".MathsEx2FelActivity" />
         <activity android:name=".GestionCompteActivity" />
