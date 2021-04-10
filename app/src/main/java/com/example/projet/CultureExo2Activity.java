@@ -31,6 +31,8 @@ public class CultureExo2Activity extends AppCompatActivity {
 
     private Integer index, erreurs;
     private ArrayList<Integer> reponses;
+    private boolean mode_correction =false;
+    private boolean lastQ = false;
 
 
     @Override
@@ -69,6 +71,7 @@ public class CultureExo2Activity extends AppCompatActivity {
     }
 
     public void Precedent(View view){
+        maj();
         index--;
         if (index < 0){
             finish();
@@ -81,13 +84,10 @@ public class CultureExo2Activity extends AppCompatActivity {
 
            if (reponse1view.isChecked()){
                reponses.set(index,1);
-               radioGroup.clearCheck();
            }else if(reponse2view.isChecked()){
                reponses.set(index,2);
-               radioGroup.clearCheck();
            }else if(reponse3view.isChecked()) {
                reponses.set(index,3);
-               radioGroup.clearCheck();
            }else reponses.set(index,0);
 
         Log.i("Test", String.valueOf(reponses.get(index)));
@@ -117,15 +117,20 @@ public class CultureExo2Activity extends AppCompatActivity {
                 super.onPostExecute(questionsReponses);
 
                 if (index > 6){
+                    int val = 0;
                     for (int i = 0; i<=6; i++){
                         if (reponses.get(i) != questionsReponses.get(i).getReponseCorrect() || reponses.get(i) == 0){
-                            erreurs++;
+                            val++;
                         }
                     }
+                    erreurs = val;
+                    mode_correction = true;
+                    index --;
                     if(erreurs >0){
                         Intent intent = new Intent(CultureExo2Activity.this, CultureExo1ErreurActivity.class);
                         intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreurs);
                         startActivity(intent);
+                        lastQ = reponses.get(index) != questionsReponses.get(index).getReponseCorrect();
                     } else {
                         Intent intent = new Intent(CultureExo2Activity.this, CultureExo1FelActivity.class);
                         startActivity(intent);
@@ -148,9 +153,14 @@ public class CultureExo2Activity extends AppCompatActivity {
                             reponse3view.setChecked(true);
                             break;
                         default:
-                            reponse1view.setChecked(false);
-                            reponse2view.setChecked(false);
-                            reponse3view.setChecked(false);
+                            radioGroup.clearCheck();
+                            break;
+                    }
+                    TextView erreurView = findViewById(R.id.erreur);
+                    if(mode_correction && reponses.get(index) != questionsReponses.get(index).getReponseCorrect()){
+                        erreurView.setVisibility(View.VISIBLE);
+                    } else{
+                        erreurView.setVisibility(View.INVISIBLE);
                     }
                 }
 
@@ -168,7 +178,14 @@ public class CultureExo2Activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        erreurs =0;
-    }
+        TextView erreurView = findViewById(R.id.erreur);
+        if(mode_correction){
+            if(lastQ){
+                erreurView.setVisibility(View.VISIBLE);
+            } else{
+                erreurView.setVisibility(View.INVISIBLE);
+            }
+        }
 
+    }
 }
