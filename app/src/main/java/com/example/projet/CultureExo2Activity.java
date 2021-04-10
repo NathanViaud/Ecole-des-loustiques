@@ -65,16 +65,6 @@ public class CultureExo2Activity extends AppCompatActivity {
         maj();
         index++;
         getQuestionsRep();
-        if(index>6){
-            if(erreurs >0){
-                Intent intent = new Intent(this, CultureExo1ErreurActivity.class);
-                intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreurs);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, CultureExo1FelActivity.class);
-                startActivity(intent);
-            }
-        }
 
     }
 
@@ -100,7 +90,7 @@ public class CultureExo2Activity extends AppCompatActivity {
                radioGroup.clearCheck();
            }else reponses.set(index,0);
 
-           //Log.i("Test", String.valueOf(reponses.get(index)));
+        Log.i("Test", String.valueOf(reponses.get(index)));
 
        }
 
@@ -132,10 +122,15 @@ public class CultureExo2Activity extends AppCompatActivity {
                             erreurs++;
                         }
                     }
-
-                    for(int j =0;j<reponses.size();j++){
-                        System.out.println(reponses.get(j));
+                    if(erreurs >0){
+                        Intent intent = new Intent(CultureExo2Activity.this, CultureExo1ErreurActivity.class);
+                        intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreurs);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(CultureExo2Activity.this, CultureExo1FelActivity.class);
+                        startActivity(intent);
                     }
+
                 } else{
                     QuestionView.setText(questionsReponses.get(index).getQuestion());
 
