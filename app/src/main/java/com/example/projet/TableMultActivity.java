@@ -3,7 +3,6 @@ package com.example.projet;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,10 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.projet.Data.Multiplication;
-import com.example.projet.Data.TableDeMultiplication;
+import com.example.projet.MathsEx1Data.Multiplication;
+import com.example.projet.MathsEx1Data.TableDeMultiplication;
 
 import java.util.ArrayList;
 

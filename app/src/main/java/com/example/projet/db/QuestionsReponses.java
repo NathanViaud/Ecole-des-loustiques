@@ -28,7 +28,7 @@ public class QuestionsReponses implements Serializable {
     private  String reponse3;
 
     @ColumnInfo(name = "reponseCorrect")
-    private String reponseCorrect;
+    private Integer reponseCorrect;
 
     /*
      * Getters and Setters
@@ -47,11 +47,11 @@ public class QuestionsReponses implements Serializable {
         this.question = question;
     }
 
-    public String getReponseCorrect() {
+    public Integer getReponseCorrect() {
         return reponseCorrect;
     }
 
-    public void setReponseCorrect(String reponseCorrect) {
+    public void setReponseCorrect(Integer reponseCorrect) {
         this.reponseCorrect = reponseCorrect;
     }
 

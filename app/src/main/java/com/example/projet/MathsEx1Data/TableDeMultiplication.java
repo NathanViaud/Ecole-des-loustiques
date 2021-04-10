@@ -1,4 +1,4 @@
-package com.example.projet.Data;
+package com.example.projet.MathsEx1Data;
 
 import java.util.ArrayList;
 import java.util.Collections;

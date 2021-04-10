@@ -28,11 +28,11 @@ public class GestionCompteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);mDb = DatabaseClient.getInstance(getApplicationContext());
+
         setContentView(R.layout.activity_gestion_compte);
 
         // Récupération du DatabaseClient
-        mDb = DatabaseClient.getInstance(getApplicationContext());
 
         // Récupérer les vues
         deleteView = findViewById(R.id.supprCompte);

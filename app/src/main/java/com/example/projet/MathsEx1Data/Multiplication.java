@@ -1,4 +1,4 @@
-package com.example.projet.Data;
+package com.example.projet.MathsEx1Data;
 
 public class Multiplication {
 
