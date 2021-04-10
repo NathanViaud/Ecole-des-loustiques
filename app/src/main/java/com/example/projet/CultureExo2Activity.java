@@ -51,6 +51,10 @@ public class CultureExo2Activity extends AppCompatActivity {
         index = 0;
         erreurs = 0;
         reponses = new ArrayList<>();
+        for(int i=0;i<=6;i++){
+            reponses.add(0);
+        }
+
 
         getQuestionsRep();
 
@@ -58,20 +62,18 @@ public class CultureExo2Activity extends AppCompatActivity {
     }
 
     public void Suivant(View view){
-        if (index == 6){
-            if(erreurs>0){
+        maj();
+        index++;
+        getQuestionsRep();
+        if(index>6){
+            if(erreurs >0){
                 Intent intent = new Intent(this, CultureExo1ErreurActivity.class);
                 intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreurs);
                 startActivity(intent);
-
             } else {
                 Intent intent = new Intent(this, CultureExo1FelActivity.class);
                 startActivity(intent);
             }
-        } else {
-            maj();
-            index++;
-            getQuestionsRep();
         }
 
     }
@@ -81,7 +83,6 @@ public class CultureExo2Activity extends AppCompatActivity {
         if (index < 0){
             finish();
         } else {
-            erreurs--;
             getQuestionsRep();
         }
     }
@@ -89,17 +90,17 @@ public class CultureExo2Activity extends AppCompatActivity {
     public void maj(){
 
            if (reponse1view.isChecked()){
-               reponses.add(1);
+               reponses.set(index,1);
                radioGroup.clearCheck();
            }else if(reponse2view.isChecked()){
-               reponses.add(2);
+               reponses.set(index,2);
                radioGroup.clearCheck();
            }else if(reponse3view.isChecked()) {
-               reponses.add(3);
+               reponses.set(index,3);
                radioGroup.clearCheck();
-           }else reponses.add(0);
+           }else reponses.set(index,0);
 
-           Log.i("Test", String.valueOf(reponses.get(index)));
+           //Log.i("Test", String.valueOf(reponses.get(index)));
 
        }
 
@@ -125,17 +126,36 @@ public class CultureExo2Activity extends AppCompatActivity {
             protected void onPostExecute(List<QuestionsReponses> questionsReponses) {
                 super.onPostExecute(questionsReponses);
 
-                QuestionView.setText(questionsReponses.get(index).getQuestion());
-
-                reponse1view.setText(questionsReponses.get(index).getReponse1());
-                reponse2view.setText(questionsReponses.get(index).getReponse2());
-                reponse3view.setText(questionsReponses.get(index).getReponse3());
-
-                if (index == 6){
-                    for (int i = 0; i<6; i++){
+                if (index > 6){
+                    for (int i = 0; i<=6; i++){
                         if (reponses.get(i) != questionsReponses.get(i).getReponseCorrect() || reponses.get(i) == 0){
                             erreurs++;
                         }
+                    }
+
+                    for(int j =0;j<reponses.size();j++){
+                        System.out.println(reponses.get(j));
+                    }
+                } else{
+                    QuestionView.setText(questionsReponses.get(index).getQuestion());
+
+                    reponse1view.setText(questionsReponses.get(index).getReponse1());
+                    reponse2view.setText(questionsReponses.get(index).getReponse2());
+                    reponse3view.setText(questionsReponses.get(index).getReponse3());
+                    switch(reponses.get(index)){
+                        case 1:
+                            reponse1view.setChecked(true);
+                            break;
+                        case 2:
+                            reponse2view.setChecked(true);
+                            break;
+                        case 3:
+                            reponse3view.setChecked(true);
+                            break;
+                        default:
+                            reponse1view.setChecked(false);
+                            reponse2view.setChecked(false);
+                            reponse3view.setChecked(false);
                     }
                 }
 
@@ -148,6 +168,12 @@ public class CultureExo2Activity extends AppCompatActivity {
         // Création d'un objet de type GetQuestionsRep et execution de la demande asynchrone
         GetQuestionsRep gt = new GetQuestionsRep();
         gt.execute();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        erreurs =0;
     }
 
 }
