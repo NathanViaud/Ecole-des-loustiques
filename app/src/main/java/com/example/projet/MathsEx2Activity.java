@@ -5,13 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projet.MathsEx2Data.Operations;
+import com.example.projet.db.DatabaseClient;
+import com.example.projet.db.User;
 
 import org.w3c.dom.Text;
 
@@ -30,6 +34,9 @@ public class MathsEx2Activity extends AppCompatActivity {
 
     private boolean fin = false;
 
+    private User userC;
+    private DatabaseClient mDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,9 @@ public class MathsEx2Activity extends AppCompatActivity {
         EditText resView = findViewById(R.id.ex2Res);
         calcul.setText(m_operations.getOperation(index).getOp1() +" "+ m_operations.getType() +" " + m_operations.getOperation(index).getOp2()+ " = ");
         defaultColor = resView.getTextColors();
+
+        userC = ((MyApplication) this.getApplication()).getUserCourrant();
+        mDb = DatabaseClient.getInstance(getApplicationContext());
     }
 
     public void Suivant(View view){
@@ -93,12 +103,14 @@ public class MathsEx2Activity extends AppCompatActivity {
             m_operations.correction();
             int erreur = m_operations.getNbErreurs();
             if(erreur>0){
+                majScore();
                 Intent intent = new Intent(this, MathsEx2ErreursActivity.class);
                 intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreur);
                 startActivity(intent);
                 fin = true;
                 index --;
             } else{
+                majScore();
                 Intent intent = new Intent(this, MathsEx2FelActivity.class);
                 startActivity(intent);
             }
@@ -171,5 +183,46 @@ public class MathsEx2Activity extends AppCompatActivity {
             }
             indexTview.addView(indexTemplate);
         }
+    }
+
+    private void majScore() {
+
+        final int Score = m_operations.getNbReps();
+
+        /**
+         * Création d'une classe asynchrone pour supprimer la tache donnée par l'utilisateur
+         */
+        class UpdateUser extends AsyncTask<Void, Void, User> {
+
+            @Override
+            protected User doInBackground(Void... voids) {
+
+                if (userC != null){
+                    User user = userC;
+                    user.setScore2M(Score);
+
+
+                    // adding to database
+                    mDb.getAppDatabase()
+                            .UserDao()
+                            .update(user);
+
+                    return user;
+                }else return null;
+
+            }
+
+            @Override
+            protected void onPostExecute(User user) {
+                super.onPostExecute(user);
+
+                Toast.makeText(getApplicationContext(), "Score Updated", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        //////////////////////////
+        // IMPORTANT bien penser à executer la demande asynchrone
+        UpdateUser st = new UpdateUser();
+        st.execute();
     }
 }

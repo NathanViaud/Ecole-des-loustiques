@@ -5,14 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projet.CultureEx1Data.Quizz;
+import com.example.projet.db.DatabaseClient;
+import com.example.projet.db.User;
 
 
 public class CultureExo1Activity extends AppCompatActivity {
@@ -24,6 +28,9 @@ public class CultureExo1Activity extends AppCompatActivity {
     private boolean mode_correction = false;
 
     private boolean fin = false;
+
+    private User userC;
+    private DatabaseClient mDb;
 
 
 
@@ -42,6 +49,9 @@ public class CultureExo1Activity extends AppCompatActivity {
         defaultColor = resView.getTextColors();
         TextView drap = findViewById(R.id.Exercice1);
         drap.setText(ressourceName);
+
+        userC = ((MyApplication) this.getApplication()).getUserCourrant();
+        mDb = DatabaseClient.getInstance(getApplicationContext());
     }
 
     public void Suivant(View view){
@@ -73,12 +83,14 @@ public class CultureExo1Activity extends AppCompatActivity {
         } else{
             int erreur = m_quizz.getNbErreurs();
             if(erreur>0){
+                majScore();
                 Intent intent = new Intent(this, CultureExo1ErreurActivity.class);
                 intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreur);
                 startActivity(intent);
                 fin = true;
                 index --;
             } else{
+                majScore();
                 Intent intent = new Intent(this, CultureExo1FelActivity.class);
                 startActivity(intent);
             }
@@ -148,5 +160,46 @@ public class CultureExo1Activity extends AppCompatActivity {
             }
             indexTview.addView(indexTemplate);
         }
+    }
+
+    private void majScore() {
+
+        final int Score = m_quizz.getNbReps();
+
+        /**
+         * Création d'une classe asynchrone pour supprimer la tache donnée par l'utilisateur
+         */
+        class UpdateUser extends AsyncTask<Void, Void, User> {
+
+            @Override
+            protected User doInBackground(Void... voids) {
+
+                if (userC != null){
+                    User user = userC;
+                    user.setScore1G(Score);
+
+
+                    // adding to database
+                    mDb.getAppDatabase()
+                            .UserDao()
+                            .update(user);
+
+                    return user;
+                }else return null;
+
+            }
+
+            @Override
+            protected void onPostExecute(User user) {
+                super.onPostExecute(user);
+
+                Toast.makeText(getApplicationContext(), "Score Updated", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        //////////////////////////
+        // IMPORTANT bien penser à executer la demande asynchrone
+        UpdateUser st = new UpdateUser();
+        st.execute();
     }
 }

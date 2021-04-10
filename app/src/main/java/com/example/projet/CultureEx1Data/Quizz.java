@@ -71,6 +71,10 @@ public class Quizz {
         this.res.add(res);
     }
 
+    public int getNbReps(){
+        return m_quizz.size()-getNbErreurs();
+    }
+
     public void setRes(int index, String res){
         // Les noms des pays sont stockés avec des _ à la place des -
         res = res.replace("-","_");

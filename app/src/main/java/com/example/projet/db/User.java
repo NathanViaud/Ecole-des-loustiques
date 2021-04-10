@@ -18,6 +18,18 @@ public class User implements Serializable {
     @ColumnInfo(name = "nom")
     private String nom;
 
+    @ColumnInfo(name = "score1M")
+    private Integer score1M;
+
+    @ColumnInfo(name = "score2M")
+    private Integer score2M;
+
+    @ColumnInfo(name = "score1G")
+    private Integer score1G;
+
+    @ColumnInfo(name = "score2G")
+    private Integer score2G;
+
     /*
      * Getters and Setters
      * */
@@ -43,4 +55,19 @@ public class User implements Serializable {
         this.nom = nom;
     }
 
+    public Integer getScore1G() { return score1G; }
+
+    public void setScore1G(Integer score1G) { this.score1G = score1G; }
+
+    public Integer getScore1M() { return score1M; }
+
+    public void setScore1M(Integer score1M) { this.score1M = score1M; }
+
+    public Integer getScore2G() { return score2G; }
+
+    public void setScore2G(Integer score2G) { this.score2G = score2G; }
+
+    public Integer getScore2M() { return score2M; }
+
+    public void setScore2M(Integer score2M) { this.score2M = score2M; }
 }

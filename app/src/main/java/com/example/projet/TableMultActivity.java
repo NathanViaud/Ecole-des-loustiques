@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,9 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projet.MathsEx1Data.Multiplication;
 import com.example.projet.MathsEx1Data.TableDeMultiplication;
+import com.example.projet.db.DatabaseClient;
+import com.example.projet.db.User;
 
 import java.util.ArrayList;
 
@@ -34,10 +38,16 @@ public class TableMultActivity extends AppCompatActivity {
     private boolean mode_correction = false;
     private boolean fin = false;
 
+    private User userC;
+    private DatabaseClient mDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_mult);
+
+        userC = ((MyApplication) this.getApplication()).getUserCourrant();
+        mDb = DatabaseClient.getInstance(getApplicationContext());
 
         String stbl = getIntent().getStringExtra(NUM_KEY);
         int table = Integer.parseInt(stbl);
@@ -67,14 +77,17 @@ public class TableMultActivity extends AppCompatActivity {
                     i++;
                 }
                 if (tableDeMultiplication.getNombreReponsesCorrectes()==10){
+                    majScore();
                     Intent TbltMultVIC = new Intent(TableMultActivity.this,FelicitationActivity.class);
                     startActivity(TbltMultVIC);
                 }else {
-                Intent TbltMultDEF = new Intent(TableMultActivity.this,ErreurActivity.class);
-                fin = true;
-                String repFausses = Integer.toString(tableDeMultiplication.getNombreReponsesFausses());
-                TbltMultDEF.putExtra(ErreurActivity.NUM_KEYE, repFausses);
-                startActivity(TbltMultDEF);}
+                    majScore();
+                    Intent TbltMultDEF = new Intent(TableMultActivity.this,ErreurActivity.class);
+                    fin = true;
+                    String repFausses = Integer.toString(tableDeMultiplication.getNombreReponsesFausses());
+                    TbltMultDEF.putExtra(ErreurActivity.NUM_KEYE, repFausses);
+                    startActivity(TbltMultDEF);
+                }
             }
         });
 
@@ -130,6 +143,47 @@ public class TableMultActivity extends AppCompatActivity {
             modeCorrection.setVisibility(View.VISIBLE);
             majCorrection();
         }
+    }
+
+    private void majScore() {
+
+        final int Score = tableDeMultiplication.getNombreReponsesCorrectes();
+
+        /**
+         * Création d'une classe asynchrone pour supprimer la tache donnée par l'utilisateur
+         */
+        class UpdateUser extends AsyncTask<Void, Void, User> {
+
+            @Override
+            protected User doInBackground(Void... voids) {
+
+                if (userC != null){
+                    User user = userC;
+                    user.setScore1M(Score);
+
+
+                    // adding to database
+                    mDb.getAppDatabase()
+                            .UserDao()
+                            .update(user);
+
+                    return user;
+                }else return null;
+
+            }
+
+            @Override
+            protected void onPostExecute(User user) {
+                super.onPostExecute(user);
+
+                Toast.makeText(getApplicationContext(), "Score Updated", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        //////////////////////////
+        // IMPORTANT bien penser à executer la demande asynchrone
+        UpdateUser st = new UpdateUser();
+        st.execute();
     }
 
 }

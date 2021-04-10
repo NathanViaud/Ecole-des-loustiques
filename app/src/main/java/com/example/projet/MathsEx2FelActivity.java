@@ -16,6 +16,7 @@ public class MathsEx2FelActivity extends AppCompatActivity {
 
     public void Return(View view){
         Intent intent = new Intent(this, JouerActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

@@ -50,8 +50,10 @@ public class Operations {
 
     public void removeRes(int i){u_res.remove(i);}
 
-    public int getNbErreurs(){
-        return this.nb_erreurs;
+    public int getNbErreurs(){ return this.nb_erreurs; }
+
+    public int getNbReps(){
+        return m_operations.size()-this.nb_erreurs;
     }
 
     public void setRes(int index, int res){

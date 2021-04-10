@@ -20,7 +20,7 @@ public class GestionCompteActivity extends AppCompatActivity {
 
     // VIEW
     private Button deleteView, retourView, modifView;
-    private TextView NomU, PrenomU, IdU;
+    private TextView NomU, PrenomU, IdU, ScoreMaths1, ScoreMaths2, ScoreCult1, ScoreCult2;
     private EditText NomET, PrenomET;
 
     private User userC;
@@ -28,7 +28,8 @@ public class GestionCompteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);mDb = DatabaseClient.getInstance(getApplicationContext());
+        super.onCreate(savedInstanceState);
+        mDb = DatabaseClient.getInstance(getApplicationContext());
 
         setContentView(R.layout.activity_gestion_compte);
 
@@ -42,6 +43,10 @@ public class GestionCompteActivity extends AppCompatActivity {
         NomU = findViewById(R.id.nomG);
         PrenomU = findViewById(R.id.prenomG);
         IdU = findViewById(R.id.idG);
+        ScoreMaths1 = findViewById(R.id.Score1Math);
+        ScoreMaths2 = findViewById(R.id.Score2Math);
+        ScoreCult1 = findViewById(R.id.Score1Gen);
+        ScoreCult2 = findViewById(R.id.Score2Gen);
 
         NomET = findViewById(R.id.nomGtext);
         PrenomET = findViewById(R.id.prenomGtext);
@@ -56,6 +61,9 @@ public class GestionCompteActivity extends AppCompatActivity {
         PrenomU.setText("Prénom : "+userC.getPrenom());
         NomU.setText("Nom : "+userC.getNom());
         IdU.setText("ID : "+userC.getId());
+        ScoreMaths1.setText(ScoreMaths1.getText()+""+userC.getScore1M()+"/10");
+        ScoreMaths2.setText(ScoreMaths2.getText()+""+userC.getScore2M()+"/10");
+        ScoreCult1.setText(ScoreCult1.getText()+""+userC.getScore1G()+"/10");
 
         // Associer un événement au bouton save
         deleteView.setOnClickListener(new View.OnClickListener() {

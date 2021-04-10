@@ -24,6 +24,7 @@ public class CultureExo1ErreurActivity extends AppCompatActivity {
     }
     public void Change(View view){
         Intent intent = new Intent(this, JouerActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
