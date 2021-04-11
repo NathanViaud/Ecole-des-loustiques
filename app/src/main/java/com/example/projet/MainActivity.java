@@ -5,15 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.projet.db.DatabaseClient;
-import com.example.projet.db.User;
+import com.example.projet.BaseDeDonnée.DatabaseClient;
+import com.example.projet.BaseDeDonnée.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseClient mDb;
     private UserAdapter adapter;
 
-    // VIEW
-    private Button buttonAdd;
-    private ListView listUser;
-
     private  MyApplication myapp;
 
     @Override
@@ -42,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
         mDb = DatabaseClient.getInstance(getApplicationContext());
         myapp = ((MyApplication) this.getApplication());
         // Récupérer les vues
-        listUser = findViewById(R.id.listUser);
-        buttonAdd = findViewById(R.id.creerCmpt);
+        ListView listUser = findViewById(R.id.listUser);
+        // VIEW
+        Button buttonAdd = findViewById(R.id.creerCmpt);
 
         // Lier l'adapter au listView
         adapter = new UserAdapter(this, new ArrayList<User>());

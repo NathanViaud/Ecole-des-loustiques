@@ -1,13 +1,10 @@
-package com.example.projet.db;
+package com.example.projet.BaseDeDonnée;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Entity
 public class QuestionsReponses implements Serializable {

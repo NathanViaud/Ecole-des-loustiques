@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.projet.db.User;
+import com.example.projet.BaseDeDonnée.User;
 
 import java.util.List;
 

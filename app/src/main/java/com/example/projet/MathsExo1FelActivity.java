@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class FelicitationActivity extends AppCompatActivity {
+public class MathsExo1FelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class FelicitationActivity extends AppCompatActivity {
         chgTbl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FelicitationActivity.this, MathsExo1Activity.class);
+                Intent intent = new Intent(MathsExo1FelActivity.this, MathsExo1Activity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -29,7 +29,7 @@ public class FelicitationActivity extends AppCompatActivity {
         retourExo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FelicitationActivity.this, MainActivity.class);
+                Intent intent = new Intent(MathsExo1FelActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

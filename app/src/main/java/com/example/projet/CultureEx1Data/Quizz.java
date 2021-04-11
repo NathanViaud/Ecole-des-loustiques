@@ -1,10 +1,7 @@
 package com.example.projet.CultureEx1Data;
 
-import android.util.Log;
-
 import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Quizz {

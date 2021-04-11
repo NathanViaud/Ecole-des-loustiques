@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ErreurActivity extends AppCompatActivity {
+public class MathsExo1ErreurActivity extends AppCompatActivity {
 
-    public static final String NUM_KEYE= "num_KEYE";
+    public static final String NUM_KEY_ERR = "num_KEY_ERR";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class ErreurActivity extends AppCompatActivity {
         Button chgTbl = (Button)findViewById(R.id.chgmtTabl);
         TextView nb = (TextView)findViewById(R.id.nbE);
 
-        String numEr = getIntent().getStringExtra(NUM_KEYE);
+        String numEr = getIntent().getStringExtra(NUM_KEY_ERR);
         nb.setText("Nombre d'erreur(s) : "+numEr);
 
         retourTbl.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +35,7 @@ public class ErreurActivity extends AppCompatActivity {
         chgTbl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ErreurActivity.this, MathsExo1Activity.class);
+                Intent intent = new Intent(MathsExo1ErreurActivity.this, MathsExo1Activity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

@@ -29,8 +29,8 @@ public class MathsExo1Activity extends AppCompatActivity {
             public void onClick(View v) {
                 int n = picker.getValue();
                 String num = Integer.toString(n);
-                Intent intent = new Intent(MathsExo1Activity.this, TableMultActivity.class);
-                intent.putExtra((TableMultActivity.NUM_KEY),num);
+                Intent intent = new Intent(MathsExo1Activity.this, MathsExo1MultiplicationAcitivity.class);
+                intent.putExtra((MathsExo1MultiplicationAcitivity.NUM_KEY),num);
                 startActivity(intent);
             }
         });

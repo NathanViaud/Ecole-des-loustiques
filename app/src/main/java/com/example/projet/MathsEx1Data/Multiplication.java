@@ -2,8 +2,8 @@ package com.example.projet.MathsEx1Data;
 
 public class Multiplication {
 
-    private int operande1;
-    private int operande2;
+    private final int operande1;
+    private final int operande2;
     private Integer reponseUtilisateur;
 
     public Multiplication(int operande1, int operande2){

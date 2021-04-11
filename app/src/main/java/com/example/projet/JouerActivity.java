@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.projet.db.User;
+import com.example.projet.BaseDeDonnée.User;
 
 public class JouerActivity extends AppCompatActivity {
 

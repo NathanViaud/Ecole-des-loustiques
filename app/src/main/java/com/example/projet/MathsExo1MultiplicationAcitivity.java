@@ -16,23 +16,16 @@ import android.widget.Toast;
 
 import com.example.projet.MathsEx1Data.Multiplication;
 import com.example.projet.MathsEx1Data.TableDeMultiplication;
-import com.example.projet.db.DatabaseClient;
-import com.example.projet.db.User;
+import com.example.projet.BaseDeDonnée.DatabaseClient;
+import com.example.projet.BaseDeDonnée.User;
 
 import java.util.ArrayList;
 
-
-
-
-
-
-public class TableMultActivity extends AppCompatActivity {
+public class MathsExo1MultiplicationAcitivity extends AppCompatActivity {
 
     public static final String NUM_KEY= "num_KEY";
 
     private TableDeMultiplication tableDeMultiplication;
-    private LinearLayout operationsTview;
-    private Button validerView;
     private ArrayList<EditText> reponsesUtilisateursTview;
 
     private boolean mode_correction = false;
@@ -40,6 +33,7 @@ public class TableMultActivity extends AppCompatActivity {
 
     private User userC;
     private DatabaseClient mDb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +50,8 @@ public class TableMultActivity extends AppCompatActivity {
 
         tableDeMultiplication.shuffle();
 
-        operationsTview = findViewById(R.id.operationsT);
-        validerView = findViewById(R.id.valider);
+        LinearLayout operationsTview = findViewById(R.id.operationsT);
+        Button validerView = findViewById(R.id.valider);
         reponsesUtilisateursTview = new ArrayList<>();
         majGraphique();
 
@@ -78,14 +72,14 @@ public class TableMultActivity extends AppCompatActivity {
                 }
                 if (tableDeMultiplication.getNombreReponsesCorrectes()==10){
                     majScore();
-                    Intent TbltMultVIC = new Intent(TableMultActivity.this,FelicitationActivity.class);
+                    Intent TbltMultVIC = new Intent(MathsExo1MultiplicationAcitivity.this, MathsExo1FelActivity.class);
                     startActivity(TbltMultVIC);
                 }else {
                     majScore();
-                    Intent TbltMultDEF = new Intent(TableMultActivity.this,ErreurActivity.class);
+                    Intent TbltMultDEF = new Intent(MathsExo1MultiplicationAcitivity.this, MathsExo1ErreurActivity.class);
                     fin = true;
                     String repFausses = Integer.toString(tableDeMultiplication.getNombreReponsesFausses());
-                    TbltMultDEF.putExtra(ErreurActivity.NUM_KEYE, repFausses);
+                    TbltMultDEF.putExtra(MathsExo1ErreurActivity.NUM_KEY_ERR, repFausses);
                     startActivity(TbltMultDEF);
                 }
             }

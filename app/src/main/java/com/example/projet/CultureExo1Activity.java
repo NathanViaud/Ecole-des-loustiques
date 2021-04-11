@@ -15,8 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projet.CultureEx1Data.Quizz;
-import com.example.projet.db.DatabaseClient;
-import com.example.projet.db.User;
+import com.example.projet.BaseDeDonnée.DatabaseClient;
+import com.example.projet.BaseDeDonnée.User;
 
 
 public class CultureExo1Activity extends AppCompatActivity {

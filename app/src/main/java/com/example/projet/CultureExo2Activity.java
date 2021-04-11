@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -13,9 +12,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.projet.db.DatabaseClient;
-import com.example.projet.db.QuestionsReponses;
-import com.example.projet.db.User;
+import com.example.projet.BaseDeDonnée.DatabaseClient;
+import com.example.projet.BaseDeDonnée.QuestionsReponses;
+import com.example.projet.BaseDeDonnée.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,7 @@ public class CultureExo2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_culture_exo2);
 
         mDb = DatabaseClient.getInstance(getApplicationContext());
-
+        userC = ((MyApplication) this.getApplication()).getUserCourrant();
 
         reponse1view = findViewById(R.id.ex2Rep1);
         reponse2view = findViewById(R.id.ex2Rep2);

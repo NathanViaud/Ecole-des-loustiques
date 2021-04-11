@@ -6,11 +6,11 @@ import java.util.Vector;
 
 public class Operations {
     private int size = 0;
-    private int operande;
-    private ArrayList<Operation> m_operations = new ArrayList<>();
+    private final int operande;
+    private final ArrayList<Operation> m_operations = new ArrayList<>();
     private int nb_erreurs = 0;
-    private ArrayList<Integer> u_res = new ArrayList<>();
-    private char type;
+    private final ArrayList<Integer> u_res = new ArrayList<>();
+    private final char type;
 
     public Operations(int operande, char type){
         this.operande = operande;
@@ -41,11 +41,7 @@ public class Operations {
     }
 
     public boolean existe(int i){
-        if(i >= u_res.size()){
-            return false;
-        } else{
-            return true;
-        }
+        return i < u_res.size();
     }
 
     public void removeRes(int i){u_res.remove(i);}

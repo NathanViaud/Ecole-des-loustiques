@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.projet.db.DatabaseClient;
-import com.example.projet.db.User;
+import com.example.projet.BaseDeDonnée.DatabaseClient;
+import com.example.projet.BaseDeDonnée.User;
 
 public class AddUserActivity extends AppCompatActivity {
 
@@ -20,7 +20,6 @@ public class AddUserActivity extends AppCompatActivity {
     // VIEW
     private EditText editTextNomView;
     private EditText editTextPrenomView;
-    private Button saveView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,7 @@ public class AddUserActivity extends AppCompatActivity {
         // Récupérer les vues
         editTextNomView = findViewById(R.id.dbNom);
         editTextPrenomView = findViewById(R.id.dbPrenom);
-        saveView = findViewById(R.id.sauvUser);
+        Button saveView = findViewById(R.id.sauvUser);
 
         // Associer un événement au bouton save
         saveView.setOnClickListener(new View.OnClickListener() {

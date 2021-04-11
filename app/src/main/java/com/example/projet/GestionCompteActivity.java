@@ -11,18 +11,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.projet.db.DatabaseClient;
-import com.example.projet.db.User;
+import com.example.projet.BaseDeDonnée.DatabaseClient;
+import com.example.projet.BaseDeDonnée.User;
 
 public class GestionCompteActivity extends AppCompatActivity {
 
     // DATA
     private DatabaseClient mDb;
 
-    // VIEW
-    private Button deleteView, retourView, modifView;
-    private TextView NomU, PrenomU, IdU, ScoreMaths1, ScoreMaths2, ScoreCult1, ScoreCult2;
-    private EditText NomET, PrenomET;
+    private Button modifView;
+
+    private TextView NomUser;
+    private TextView PrenomUser;
+
+    private EditText NomEditT, PrenomEditT;
 
     private User userC;
     private boolean isModif;
@@ -37,20 +39,22 @@ public class GestionCompteActivity extends AppCompatActivity {
         // Récupération du DatabaseClient
 
         // Récupérer les vues
-        deleteView = findViewById(R.id.supprCompte);
-        retourView = findViewById(R.id.retour);
+        // VIEW
+        Button deleteView = findViewById(R.id.supprCompte);
+        Button retourView = findViewById(R.id.retour);
         modifView = findViewById(R.id.modifCompte);
 
-        NomU = findViewById(R.id.nomG);
-        PrenomU = findViewById(R.id.prenomG);
-        IdU = findViewById(R.id.idG);
-        ScoreMaths1 = findViewById(R.id.Score1Math);
-        ScoreMaths2 = findViewById(R.id.Score2Math);
-        ScoreCult1 = findViewById(R.id.Score1Gen);
-        ScoreCult2 = findViewById(R.id.Score2Gen);
+        NomUser = findViewById(R.id.nomGestCompte);
+        PrenomUser = findViewById(R.id.prenomGestCompte);
 
-        NomET = findViewById(R.id.nomGtext);
-        PrenomET = findViewById(R.id.prenomGtext);
+        TextView idUser = findViewById(R.id.idGestCompte);
+        TextView scoreMaths1 = findViewById(R.id.Score1Math);
+        TextView scoreMaths2 = findViewById(R.id.Score2Math);
+        TextView scoreCult1 = findViewById(R.id.Score1Gen);
+        TextView scoreCult2 = findViewById(R.id.Score2Gen);
+
+        NomEditT = findViewById(R.id.nomGestCompteEditT);
+        PrenomEditT = findViewById(R.id.prenomGestCompteEditT);
 
 
         //Récupération de l'utilisateur courrant avec MyApplication
@@ -59,28 +63,28 @@ public class GestionCompteActivity extends AppCompatActivity {
 
         isModif = false;
 
-        PrenomU.setText("Prénom : "+userC.getPrenom());
-        NomU.setText("Nom : "+userC.getNom());
-        IdU.setText("ID : "+userC.getId());
+        PrenomUser.setText("Prénom : "+userC.getPrenom());
+        NomUser.setText("Nom : "+userC.getNom());
+        idUser.setText("ID : "+userC.getId());
         if(userC.getScore1M() == null){
-            ScoreMaths1.setText(ScoreMaths1.getText()+"Jamais fait");
+            scoreMaths1.setText(scoreMaths1.getText()+"Jamais fait");
         }else{
-            ScoreMaths1.setText(ScoreMaths1.getText()+""+userC.getScore1M()+"/10");
+            scoreMaths1.setText(scoreMaths1.getText()+""+userC.getScore1M()+"/10");
         }
         if(userC.getScore2M() == null){
-            ScoreMaths2.setText(ScoreMaths2.getText()+"Jamais fait");
+            scoreMaths2.setText(scoreMaths2.getText()+"Jamais fait");
         }else{
-            ScoreMaths2.setText(ScoreMaths2.getText()+""+userC.getScore2M()+"/10");
+            scoreMaths2.setText(scoreMaths2.getText()+""+userC.getScore2M()+"/10");
         }
         if(userC.getScore1G() == null){
-            ScoreCult1.setText(ScoreCult1.getText()+"Jamais fait");
+            scoreCult1.setText(scoreCult1.getText()+"Jamais fait");
         }else{
-            ScoreCult1.setText(ScoreCult1.getText()+""+userC.getScore1G()+"/10");
+            scoreCult1.setText(scoreCult1.getText()+""+userC.getScore1G()+"/10");
         }
         if(userC.getScore2G() == null){
-            ScoreCult2.setText(ScoreCult2.getText()+"Jamais fait");
+            scoreCult2.setText(scoreCult2.getText()+"Jamais fait");
         }else{
-            ScoreCult2.setText(ScoreCult2.getText()+""+userC.getScore2G()+"/10");
+            scoreCult2.setText(scoreCult2.getText()+""+userC.getScore2G()+"/10");
         }
 
         // Associer un événement au bouton save
@@ -98,28 +102,28 @@ public class GestionCompteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isModif == false){
-                    NomU.setText("Nom : ");
-                    NomET.setVisibility(View.VISIBLE);
-                    NomET.setText(userC.getNom());
+                    NomUser.setText("Nom : ");
+                    NomEditT.setVisibility(View.VISIBLE);
+                    NomEditT.setText(userC.getNom());
 
-                    PrenomU.setText("Prénom : ");
-                    PrenomET.setVisibility(View.VISIBLE);
-                    PrenomET.setText(userC.getPrenom());
+                    PrenomUser.setText("Prénom : ");
+                    PrenomEditT.setVisibility(View.VISIBLE);
+                    PrenomEditT.setText(userC.getPrenom());
 
                     modifView.setText("Fini");
                     isModif = true;
                 }else {
                     updateUser();
-                    userC.setNom(NomET.getText().toString());
-                    userC.setPrenom(PrenomET.getText().toString());
+                    userC.setNom(NomEditT.getText().toString());
+                    userC.setPrenom(PrenomEditT.getText().toString());
 
-                    NomU.setText("Nom : "+userC.getNom());
-                    NomET.setVisibility(View.INVISIBLE);
-                    NomET.setText(" ");
+                    NomUser.setText("Nom : "+userC.getNom());
+                    NomEditT.setVisibility(View.INVISIBLE);
+                    NomEditT.setText(" ");
 
-                    PrenomU.setText("Prénom : "+userC.getPrenom());
-                    PrenomET.setVisibility(View.INVISIBLE);
-                    PrenomET.setText(" ");
+                    PrenomUser.setText("Prénom : "+userC.getPrenom());
+                    PrenomEditT.setVisibility(View.INVISIBLE);
+                    PrenomEditT.setText(" ");
 
                     modifView.setText("Modifier");
                     isModif = false;
@@ -177,8 +181,8 @@ public class GestionCompteActivity extends AppCompatActivity {
     private void updateUser() {
 
         // Récupérer les informations contenues dans les vues
-        final String sNom = NomET.getText().toString().trim();
-        final String sPrenom = PrenomET.getText().toString().trim();
+        final String sNom = NomEditT.getText().toString().trim();
+        final String sPrenom = PrenomEditT.getText().toString().trim();
 
         /**
          * Création d'une classe asynchrone pour supprimer la tache donnée par l'utilisateur

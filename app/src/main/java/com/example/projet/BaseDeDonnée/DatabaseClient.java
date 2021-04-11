@@ -1,4 +1,4 @@
-package com.example.projet.db;
+package com.example.projet.BaseDeDonnée;
 
 import android.content.Context;
 
@@ -6,9 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
-import java.util.ArrayList;
-import java.util.concurrent.Executors;
 
 public class DatabaseClient {
 
@@ -21,14 +18,12 @@ public class DatabaseClient {
     // Constructeur
     private DatabaseClient(final Context context) {
 
-        // Créer l'objet représentant la base de données de votre application
+        // Créer l'objet représentant la base de données de l'application
         // à l'aide du "Room database builder"
-        // MyToDos est le nom de la base de données
         appDatabase = Room.databaseBuilder(context, AppDatabase.class, "EcoleDesLoustics").addCallback(roomDatabaseCallback).build(); //addCallback(roomDatabaseCallback).
 
         ////////// REMPLIR LA BD à la première création à l'aide de l'objet roomDatabaseCallback
         // Ajout de la méthode addCallback permettant de populate (remplir) la base de données à sa création
-        //appDatabase = Room.databaseBuilder(context, AppDatabase.class, "MyToDos").addCallback(roomDatabaseCallback).build();
     }
 
     // Méthode statique

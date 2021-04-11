@@ -24,9 +24,9 @@
         <activity android:name=".MathsActivity" />
         <activity android:name=".JouerActivity" />
         <activity android:name=".MathsExo1Activity" />
-        <activity android:name=".ErreurActivity" />
-        <activity android:name=".FelicitationActivity" />
-        <activity android:name=".TableMultActivity" />
+        <activity android:name=".MathsExo1ErreurActivity" />
+        <activity android:name=".MathsExo1FelActivity" />
+        <activity android:name=".MathsExo1MultiplicationAcitivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

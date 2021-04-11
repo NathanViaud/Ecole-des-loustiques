@@ -14,10 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projet.MathsEx2Data.Operations;
-import com.example.projet.db.DatabaseClient;
-import com.example.projet.db.User;
-
-import org.w3c.dom.Text;
+import com.example.projet.BaseDeDonnée.DatabaseClient;
+import com.example.projet.BaseDeDonnée.User;
 
 public class MathsEx2Activity extends AppCompatActivity {
 

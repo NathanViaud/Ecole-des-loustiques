@@ -23,7 +23,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/idG"
+            android:id="@+id/idGestCompte"
             android:textSize="28sp"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
@@ -37,14 +37,14 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/nomG"
+                android:id="@+id/nomGestCompte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nom : "
                 android:textSize="28sp" />
 
             <EditText
-                android:id="@+id/nomGtext"
+                android:id="@+id/nomGestCompteEditT"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:visibility="invisible"
@@ -61,14 +61,14 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/prenomG"
+                android:id="@+id/prenomGestCompte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Prénom : "
                 android:textSize="28sp" />
 
             <EditText
-                android:id="@+id/prenomGtext"
+                android:id="@+id/prenomGestCompteEditT"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:visibility="invisible"
