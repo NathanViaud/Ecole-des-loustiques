@@ -159,9 +159,11 @@ public class TableMultActivity extends AppCompatActivity {
 
                 if (userC != null){
                     User user = userC;
-                    user.setScore1M(Score);
+                    if(!mode_correction){
 
+                        user.setScore1M(Score);
 
+                    }
                     // adding to database
                     mDb.getAppDatabase()
                             .UserDao()

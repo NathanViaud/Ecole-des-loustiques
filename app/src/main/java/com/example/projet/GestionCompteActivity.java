@@ -62,10 +62,26 @@ public class GestionCompteActivity extends AppCompatActivity {
         PrenomU.setText("Prénom : "+userC.getPrenom());
         NomU.setText("Nom : "+userC.getNom());
         IdU.setText("ID : "+userC.getId());
-        ScoreMaths1.setText(ScoreMaths1.getText()+""+userC.getScore1M()+"/10");
-        ScoreMaths2.setText(ScoreMaths2.getText()+""+userC.getScore2M()+"/10");
-        ScoreCult1.setText(ScoreCult1.getText()+""+userC.getScore1G()+"/10");
-        ScoreCult2.setText(ScoreCult2.getText()+""+userC.getScore2G()+"/7");
+        if(userC.getScore1M() == null){
+            ScoreMaths1.setText(ScoreMaths1.getText()+"Jamais fait");
+        }else{
+            ScoreMaths1.setText(ScoreMaths1.getText()+""+userC.getScore1M()+"/10");
+        }
+        if(userC.getScore2M() == null){
+            ScoreMaths2.setText(ScoreMaths2.getText()+"Jamais fait");
+        }else{
+            ScoreMaths2.setText(ScoreMaths2.getText()+""+userC.getScore2M()+"/10");
+        }
+        if(userC.getScore1G() == null){
+            ScoreCult1.setText(ScoreCult1.getText()+"Jamais fait");
+        }else{
+            ScoreCult1.setText(ScoreCult1.getText()+""+userC.getScore1G()+"/10");
+        }
+        if(userC.getScore2G() == null){
+            ScoreCult2.setText(ScoreCult2.getText()+"Jamais fait");
+        }else{
+            ScoreCult2.setText(ScoreCult2.getText()+""+userC.getScore2G()+"/10");
+        }
 
         // Associer un événement au bouton save
         deleteView.setOnClickListener(new View.OnClickListener() {

@@ -57,17 +57,34 @@ public class User implements Serializable {
 
     public Integer getScore1G() { return score1G; }
 
-    public void setScore1G(Integer score1G) { this.score1G = score1G; }
+    public void setScore1G(Integer score1G) {
+        if(score1G > this.score1G || this.score1M == null){
+            this.score1G = score1G;
+        }
+    }
 
     public Integer getScore1M() { return score1M; }
 
-    public void setScore1M(Integer score1M) { this.score1M = score1M; }
+    public void setScore1M(Integer score1M) {
+        if(score1M > this.score1M || this.score1M == null){
+            this.score1M = score1M;
+        }
+    }
 
     public Integer getScore2G() { return score2G; }
 
-    public void setScore2G(Integer score2G) { this.score2G = score2G; }
+    public void setScore2G(Integer score2G) {
+        if(score2G > this.score2G || this.score1M == null){
+            this.score2G = score2G;
+        }
+
+    }
 
     public Integer getScore2M() { return score2M; }
 
-    public void setScore2M(Integer score2M) { this.score2M = score2M; }
+    public void setScore2M(Integer score2M) {
+        if(score2M > this.score2M || this.score1M == null){
+            this.score2M = score2M;
+        }
+    }
 }
