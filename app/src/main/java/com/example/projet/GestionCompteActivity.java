@@ -86,7 +86,7 @@ public class GestionCompteActivity extends AppCompatActivity {
         if(userC.getScore2G() == null){
             scoreCult2.setText(scoreCult2.getText()+"Jamais fait");
         }else{
-            scoreCult2.setText(scoreCult2.getText()+""+userC.getScore2G()+"/10");
+            scoreCult2.setText(scoreCult2.getText()+""+userC.getScore2G()+"/7");
         }
 
         // Associer un événement au bouton save
@@ -138,7 +138,6 @@ public class GestionCompteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                Toast.makeText(getApplicationContext(), "Retour", Toast.LENGTH_LONG).show();
             }
         });
     }

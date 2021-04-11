@@ -78,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 // Récupération de la tâche cliquée à l'aide de l'adapter
                 User user = adapter.getItem(position);
                 myapp.setUserCourrant(user);
-                // Message
-                Toast.makeText(MainActivity.this, "LongClick : " + user.getPrenom(), Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(MainActivity.this, GestionCompteActivity.class);
 
                 startActivity(intent);
