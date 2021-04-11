@@ -4,10 +4,11 @@ import android.app.Application;
 
 import com.example.projet.BaseDeDonnée.User;
 
-public class MyApplication extends Application {
+public class MyApplication extends Application { //creation de la sous classe MyApplication qui est la fille de notre application
 
-    private User UserCourrant;
+    private User UserCourrant; //ajout du user Courrant
 
+    //getter et setters
     public User getUserCourrant() {
         return UserCourrant;
     }

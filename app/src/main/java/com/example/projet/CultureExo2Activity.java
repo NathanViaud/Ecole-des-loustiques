@@ -29,6 +29,7 @@ public class CultureExo2Activity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private TextView QuestionView;
 
+    //variables
     private Integer index, erreurs;
     private ArrayList<Integer> reponses;
     private boolean mode_correction =false;
@@ -42,6 +43,7 @@ public class CultureExo2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_culture_exo2);
 
+        //instanciation
         mDb = DatabaseClient.getInstance(getApplicationContext());
         userC = ((MyApplication) this.getApplication()).getUserCourrant();
 
@@ -56,12 +58,13 @@ public class CultureExo2Activity extends AppCompatActivity {
         index = 0;
         erreurs = 0;
         reponses = new ArrayList<>();
+
         for(int i=0;i<=6;i++){
-            reponses.add(0);
+            reponses.add(0);//on ajoute par défaut la position 0 a toutes les questions
         }
 
 
-        getQuestionsRep();
+        getQuestionsRep();//on lance la recuperation des questions reponses
 
 
     }
@@ -74,13 +77,14 @@ public class CultureExo2Activity extends AppCompatActivity {
     }
 
     public void Precedent(View view){
-        maj();
+        maj();//mise a jour de la liste des réponses
         index--;
         getQuestionsRep();
     }
 
     public void maj(){
 
+        //en fonction de la checkbox cliquer on met a jour la liste de la position des réponses
            if (reponse1view.isChecked()){
                reponses.set(index,1);
            }else if(reponse2view.isChecked()){
@@ -89,7 +93,6 @@ public class CultureExo2Activity extends AppCompatActivity {
                reponses.set(index,3);
            }else reponses.set(index,0);
 
-        Log.i("Test", String.valueOf(reponses.get(index)));
 
        }
 
@@ -105,7 +108,7 @@ public class CultureExo2Activity extends AppCompatActivity {
 
             @Override
             protected List<QuestionsReponses> doInBackground(Void... voids) {
-                List<QuestionsReponses> questionsReponsesList = mDb.getAppDatabase()
+                List<QuestionsReponses> questionsReponsesList = mDb.getAppDatabase()//recuperation de toutes les questions reponses de la base de donnée
                         .QuestionsReponsesDao()
                         .getAll();
                 return questionsReponsesList;
@@ -115,35 +118,37 @@ public class CultureExo2Activity extends AppCompatActivity {
             protected void onPostExecute(List<QuestionsReponses> questionsReponses) {
                 super.onPostExecute(questionsReponses);
 
-                if (index > 6){
+                if (index > 6){//si on est a la derniere question
                     int val = 0;
-                    for (int i = 0; i<=6; i++){
+                    for (int i = 0; i<=6; i++){//on boucle sur le nombre de questions
                         if (reponses.get(i) != questionsReponses.get(i).getReponseCorrect() || reponses.get(i) == 0){
-                            val++;
+                            //si la postion de la reponses a lindex donnée ne correspond pas a celui de la base de donnée
+                            val++; // on ajoute une erreurs
                         }
                     }
                     erreurs = val;
                     mode_correction = true;
                     index --;
                     if(erreurs >0){
-                        majScore();
+                        majScore();//mise a jour du score
                         Intent intent = new Intent(CultureExo2Activity.this, CultureExo1ErreurActivity.class);
-                        intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreurs);
-                        startActivity(intent);
-                        lastQ = reponses.get(index) != questionsReponses.get(index).getReponseCorrect();
+                        intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreurs);//ajout du nombre derreurs a la clé
+                        startActivity(intent);//on lance l'acitivité erreurs
+                        lastQ = reponses.get(index) != questionsReponses.get(index).getReponseCorrect();//on verifie la derniere question
                     } else {
                         majScore();
                         Intent intent = new Intent(CultureExo2Activity.this, CultureExo1FelActivity.class);
                         startActivity(intent);
                     }
 
-                } else{
+                } else{//sinon cela veut dire quon est pas a la derniere questions
+                    //on modifie les vues avec les valeurs de la bdd
                     QuestionView.setText(questionsReponses.get(index).getQuestion());
 
                     reponse1view.setText(questionsReponses.get(index).getReponse1());
                     reponse2view.setText(questionsReponses.get(index).getReponse2());
                     reponse3view.setText(questionsReponses.get(index).getReponse3());
-                    switch(reponses.get(index)){
+                    switch(reponses.get(index)){//on sauvgarde le clique du radio button
                         case 1:
                             reponse1view.setChecked(true);
                             break;
@@ -157,6 +162,7 @@ public class CultureExo2Activity extends AppCompatActivity {
                             radioGroup.clearCheck();
                             break;
                     }
+                    //on lance le mode correction
                     TextView erreurView = findViewById(R.id.erreur);
                     if(mode_correction && reponses.get(index) != questionsReponses.get(index).getReponseCorrect()){
                         erreurView.setVisibility(View.VISIBLE);
@@ -190,7 +196,7 @@ public class CultureExo2Activity extends AppCompatActivity {
 
     }
 
-    private void majScore() {
+    private void majScore() {//epliquer dans MathsExo1MMultiplicationActivity
 
         final int Score = 7-erreurs;
 

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class MathsExo1ErreurActivity extends AppCompatActivity {
 
-    public static final String NUM_KEY_ERR = "num_KEY_ERR";
+    public static final String NUM_KEY_ERR = "num_KEY_ERR";// nombre d'erreurs de l'exercie
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +21,14 @@ public class MathsExo1ErreurActivity extends AppCompatActivity {
         Button chgTbl = (Button)findViewById(R.id.chgmtTabl);
         TextView nb = (TextView)findViewById(R.id.nbE);
 
-        String numEr = getIntent().getStringExtra(NUM_KEY_ERR);
-        nb.setText("Nombre d'erreur(s) : "+numEr);
+        String numEr = getIntent().getStringExtra(NUM_KEY_ERR);// on récupere la valeur de NUM_KEY_ERR, le nombre d'erreurs envoyé par MathsExo1MultiplicationActivity
+        nb.setText("Nombre d'erreur(s) : "+numEr);//modifie avec le nombre d'erreurs récuperer
 
         retourTbl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
-            }
+            } //retour au questions de la table en cours
         });
 
 
@@ -36,7 +36,7 @@ public class MathsExo1ErreurActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MathsExo1ErreurActivity.this, JouerActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // on retourne au menu Jouer, (on supprime le dessus de la pile)
                 startActivity(intent);
             }
         });

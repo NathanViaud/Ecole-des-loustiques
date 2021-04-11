@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class MathsExo1MultiplicationAcitivity extends AppCompatActivity {
 
-    public static final String NUM_KEY= "num_KEY";
+    public static final String NUM_KEY= "num_KEY"; //nombre de la table sélectionné, envoyé par MathsExo1Activity
 
     private TableDeMultiplication tableDeMultiplication;
     private ArrayList<EditText> reponsesUtilisateursTview;
@@ -40,47 +40,47 @@ public class MathsExo1MultiplicationAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_mult);
 
-        userC = ((MyApplication) this.getApplication()).getUserCourrant();
+        userC = ((MyApplication) this.getApplication()).getUserCourrant();//récupération user Courrant en passant par MyApplication
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
-        String stbl = getIntent().getStringExtra(NUM_KEY);
-        int table = Integer.parseInt(stbl);
+        String stbl = getIntent().getStringExtra(NUM_KEY); //récuperation du numéro de la table
+        int table = Integer.parseInt(stbl);// transformation en int pour pouvoir s'en servir
 
-        tableDeMultiplication = new TableDeMultiplication(table);
+        tableDeMultiplication = new TableDeMultiplication(table); // creation de table lié au numéro
 
-        tableDeMultiplication.shuffle();
+        tableDeMultiplication.shuffle(); //on mélange l'odre des multiplications
 
-        LinearLayout operationsTview = findViewById(R.id.operationsT);
         Button validerView = findViewById(R.id.valider);
+
         reponsesUtilisateursTview = new ArrayList<>();
-        majGraphique();
+        majGraphique(); //on fait la maj graphique pour afficher la table
 
 
 
-        validerView.setOnClickListener(new View.OnClickListener() {
+        validerView.setOnClickListener(new View.OnClickListener() {//boutton valider
             @Override
             public void onClick(View v) {
 
-                int i = 0;
-                for(EditText reponsesUtilisateursTview : reponsesUtilisateursTview){
-                    if (!TextUtils.isEmpty(reponsesUtilisateursTview.getText())){
-                        int reponseUtilisateur = Integer.parseInt(reponsesUtilisateursTview.getText().toString());
-                        tableDeMultiplication.getMultiplication(i).setReponseUtilisateur(reponseUtilisateur);
+                int i = 0; // creation de lindex pour les listes
+                for(EditText reponsesUtilisateursTview : reponsesUtilisateursTview){ // on boucle sur la liste des réponses de l'utilisateur jusqua la derniere rep
+                    if (!TextUtils.isEmpty(reponsesUtilisateursTview.getText())){ //on verifie que la réponse existe : cad si il a un nombre ou que le string est null donc que lutilisateur na rien rempli
+                        int reponseUtilisateur = Integer.parseInt(reponsesUtilisateursTview.getText().toString()); //on transforme le string en int
+                        tableDeMultiplication.getMultiplication(i).setReponseUtilisateur(reponseUtilisateur);//on ajoute l'integer aux reponses de l'utilisateur a lindex correspondant
 
                     }
-                    i++;
+                    i++;//on incrémente lindex
                 }
-                if (tableDeMultiplication.getNombreReponsesCorrectes()==10){
-                    majScore();
+                if (tableDeMultiplication.getNombreReponsesCorrectes()==10){ // si lutilisateur a tout juste
+                    majScore();//on modifie son score en base de donnée
                     Intent TbltMultVIC = new Intent(MathsExo1MultiplicationAcitivity.this, MathsExo1FelActivity.class);
-                    startActivity(TbltMultVIC);
+                    startActivity(TbltMultVIC);// on lance l'acitivté félicitation
                 }else {
-                    majScore();
+                    majScore();//on modifie son score en base de donnée
                     Intent TbltMultDEF = new Intent(MathsExo1MultiplicationAcitivity.this, MathsExo1ErreurActivity.class);
                     fin = true;
-                    String repFausses = Integer.toString(tableDeMultiplication.getNombreReponsesFausses());
-                    TbltMultDEF.putExtra(MathsExo1ErreurActivity.NUM_KEY_ERR, repFausses);
-                    startActivity(TbltMultDEF);
+                    String repFausses = Integer.toString(tableDeMultiplication.getNombreReponsesFausses());//on transforme le nombre en string pour le passe dans la clé
+                    TbltMultDEF.putExtra(MathsExo1ErreurActivity.NUM_KEY_ERR, repFausses);//on passe le nombre d'erreurs a l'activité
+                    startActivity(TbltMultDEF);// on lance l'acitivté erreurs
                 }
             }
         });
@@ -88,22 +88,26 @@ public class MathsExo1MultiplicationAcitivity extends AppCompatActivity {
     }
 
     private void majGraphique() {
-        LinearLayout operationsTview = findViewById(R.id.operationsT);
+        LinearLayout operationsTview = findViewById(R.id.operationsT);//récupération du layout des multiplications
         operationsTview.removeAllViews();
 
-        for (Multiplication multiplication : tableDeMultiplication.getMultiplications()) {
+        for (Multiplication multiplication : tableDeMultiplication.getMultiplications()) { //on boucle dans la talble de multiplication du numéro sélectionner
 
-            LinearLayout ligneViewTmplt = (LinearLayout) getLayoutInflater().inflate(R.layout.templt_ligne, null);
+            LinearLayout ligneViewTmplt = (LinearLayout) getLayoutInflater().inflate(R.layout.templt_ligne, null);//on inflate le layout correspondant a une ligne
 
+            //on récupere les vues liés aux operandes et on les passe en string
             TextView operande1View = ligneViewTmplt.findViewById(R.id.operande1);
             TextView operande2View = ligneViewTmplt.findViewById(R.id.operande2);
             String operande1Chaine = Integer.toString(multiplication.getOperande1());
             String operande2Chaine = Integer.toString(multiplication.getOperande2());
+
+            //on les ajoute a ces vues
             operande1View.setText(operande1Chaine);
             operande2View.setText(operande2Chaine);
-            EditText resView = ligneViewTmplt.findViewById(R.id.templt_res);
-            reponsesUtilisateursTview.add(resView);
-            operationsTview.addView(ligneViewTmplt);
+            EditText resView = ligneViewTmplt.findViewById(R.id.templt_res);//
+
+            reponsesUtilisateursTview.add(resView);//ajout a la liste la reponse : la valeur rentrer dans la l'edit text correspondant a la ligne
+            operationsTview.addView(ligneViewTmplt);//ajout de la ligne avec les operandes et la valeur du edit text a la vue
 
         }
 
@@ -141,7 +145,7 @@ public class MathsExo1MultiplicationAcitivity extends AppCompatActivity {
 
     private void majScore() {
 
-        final int Score = tableDeMultiplication.getNombreReponsesCorrectes();
+        final int Score = tableDeMultiplication.getNombreReponsesCorrectes(); // récuperation du score
 
         /**
          * Création d'une classe asynchrone pour supprimer la tache donnée par l'utilisateur
@@ -151,20 +155,20 @@ public class MathsExo1MultiplicationAcitivity extends AppCompatActivity {
             @Override
             protected User doInBackground(Void... voids) {
 
-                if (userC != null){
+                if (userC != null){//si l'user courrant existe
                     User user = userC;
-                    if(!mode_correction){
+                    if(!mode_correction){//et si on est pas en mode correction
 
-                        user.setScore1M(Score);
+                        user.setScore1M(Score);//on modifie le score de l'user courrant de l'exercice correspondant
 
                     }
                     // adding to database
                     mDb.getAppDatabase()
                             .UserDao()
-                            .update(user);
+                            .update(user);//on update l'user dans la bdd avec la nouvelle valeur du score
 
-                    return user;
-                }else return null;
+                    return user;//on le return
+                }else return null;//si l'utilisateur n'existe pas on ne renvoi null
 
             }
 
@@ -172,7 +176,7 @@ public class MathsExo1MultiplicationAcitivity extends AppCompatActivity {
             protected void onPostExecute(User user) {
                 super.onPostExecute(user);
 
-                Toast.makeText(getApplicationContext(), "Score Updated", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Score Updated", Toast.LENGTH_LONG).show();//on affiche l'update
             }
         }
 

@@ -45,7 +45,7 @@ public class AddUserActivity extends AppCompatActivity {
 
     private void saveUser() {
 
-        // Récupérer les informations contenues dans les vues
+        // Récupérer les informations contenues dans les edit text
         final String sNom = editTextNomView.getText().toString().trim();
         final String sPrenom = editTextPrenomView.getText().toString().trim();
 
@@ -63,22 +63,22 @@ public class AddUserActivity extends AppCompatActivity {
         }
 
         /**
-         * Création d'une classe asynchrone pour sauvegarder la tache donnée par l'utilisateur
+         * Création d'une classe asynchrone pour sauvegarder l'utilisateur et ses données
          */
         class SaveUser extends AsyncTask<Void, Void, User> {
 
             @Override
             protected User doInBackground(Void... voids) {
 
-                // creating a task
+                // creation d'un user
                 User user = new User();
-                user.setPrenom(sPrenom);
+                user.setPrenom(sPrenom);//attribution des valueurs rentrer
                 user.setNom(sNom);
 
                 // adding to database
                 mDb.getAppDatabase()
                         .UserDao()
-                        .insert(user);
+                        .insert(user);//ajout a bdd avec la methode du Dao
 
                 return user;
             }
@@ -87,7 +87,7 @@ public class AddUserActivity extends AppCompatActivity {
             protected void onPostExecute(User user) {
                 super.onPostExecute(user);
 
-                // Quand la tache est créée, on arrête l'activité AddTaskActivity (on l'enleve de la pile d'activités)
+                // Quand la tache est créée, on arrête l'activité AddUserActivity (on l'enleve de la pile d'activités)
                 setResult(RESULT_OK);
                 finish();
                 Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();

@@ -21,7 +21,7 @@ public class MathsExo1FelActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MathsExo1FelActivity.this, MathsExo1Activity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //on retourne au choix de la table
                 startActivity(intent);
             }
         });
@@ -30,7 +30,7 @@ public class MathsExo1FelActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MathsExo1FelActivity.this, JouerActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);// on retourne au menu Jouer, (on supprime le dessus de la pile)
                 startActivity(intent);
             }
         });
