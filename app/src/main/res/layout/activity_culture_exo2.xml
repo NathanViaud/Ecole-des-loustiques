@@ -78,6 +78,6 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Erreurs"
+        android:text="Erreur"
         android:textColor="@color/design_default_color_error"/>
 </LinearLayout>

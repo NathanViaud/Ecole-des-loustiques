@@ -31,4 +31,16 @@
             android:text="Culture G"/>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/profilU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profil"
+        android:textSize="18sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="21dp"
+        />
+
 </RelativeLayout>

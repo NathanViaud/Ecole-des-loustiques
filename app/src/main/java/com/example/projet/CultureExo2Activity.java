@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,6 +35,8 @@ public class CultureExo2Activity extends AppCompatActivity {
     private boolean mode_correction =false;
     private boolean lastQ = false;
 
+    private User userC;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class CultureExo2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_culture_exo2);
 
         mDb = DatabaseClient.getInstance(getApplicationContext());
+
 
         reponse1view = findViewById(R.id.ex2Rep1);
         reponse2view = findViewById(R.id.ex2Rep2);
@@ -127,11 +131,13 @@ public class CultureExo2Activity extends AppCompatActivity {
                     mode_correction = true;
                     index --;
                     if(erreurs >0){
+                        majScore();
                         Intent intent = new Intent(CultureExo2Activity.this, CultureExo1ErreurActivity.class);
                         intent.putExtra(MathsEx2ErreursActivity.NB_ERR, erreurs);
                         startActivity(intent);
                         lastQ = reponses.get(index) != questionsReponses.get(index).getReponseCorrect();
                     } else {
+                        majScore();
                         Intent intent = new Intent(CultureExo2Activity.this, CultureExo1FelActivity.class);
                         startActivity(intent);
                     }
@@ -187,5 +193,46 @@ public class CultureExo2Activity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void majScore() {
+
+        final int Score = 7-erreurs;
+
+        /**
+         * Création d'une classe asynchrone pour supprimer la tache donnée par l'utilisateur
+         */
+        class UpdateUser extends AsyncTask<Void, Void, User> {
+
+            @Override
+            protected User doInBackground(Void... voids) {
+
+                if (userC != null){
+                    User user = userC;
+                    user.setScore2G(Score);
+
+
+                    // adding to database
+                    mDb.getAppDatabase()
+                            .UserDao()
+                            .update(user);
+
+                    return user;
+                }else return null;
+
+            }
+
+            @Override
+            protected void onPostExecute(User user) {
+                super.onPostExecute(user);
+
+                Toast.makeText(getApplicationContext(), "Score Updated", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        //////////////////////////
+        // IMPORTANT bien penser à executer la demande asynchrone
+        UpdateUser st = new UpdateUser();
+        st.execute();
     }
 }

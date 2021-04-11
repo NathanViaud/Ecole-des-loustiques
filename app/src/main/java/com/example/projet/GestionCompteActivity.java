@@ -2,6 +2,7 @@ package com.example.projet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -64,12 +65,16 @@ public class GestionCompteActivity extends AppCompatActivity {
         ScoreMaths1.setText(ScoreMaths1.getText()+""+userC.getScore1M()+"/10");
         ScoreMaths2.setText(ScoreMaths2.getText()+""+userC.getScore2M()+"/10");
         ScoreCult1.setText(ScoreCult1.getText()+""+userC.getScore1G()+"/10");
+        ScoreCult2.setText(ScoreCult2.getText()+""+userC.getScore2G()+"/7");
 
         // Associer un événement au bouton save
         deleteView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 deleteUser();
+                Intent intent = new Intent(GestionCompteActivity.this,MainActivity.class );
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
