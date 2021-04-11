@@ -14,8 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projet.MathsEx2Data.Operations;
+
 import com.example.projet.BaseDeDonnée.DatabaseClient;
 import com.example.projet.BaseDeDonnée.User;
+
 
 public class MathsEx2Activity extends AppCompatActivity {
 
@@ -28,7 +30,7 @@ public class MathsEx2Activity extends AppCompatActivity {
     private int ordre;
     private ColorStateList defaultColor;
 
-    private boolean correction = false;
+    private boolean mode_correction = false;
 
     private boolean fin = false;
 
@@ -43,10 +45,12 @@ public class MathsEx2Activity extends AppCompatActivity {
         type = getIntent().getCharExtra(TYPE,'+');
         ordre = getIntent().getIntExtra(ORDRE,0);
 
+        //Creation d'une liste de 10 operations
         m_operations = new Operations(ordre, type);
+
         TextView calcul = findViewById(R.id.ex2Req);
         EditText resView = findViewById(R.id.ex2Res);
-        calcul.setText(m_operations.getOperation(index).getOp1() +" "+ m_operations.getType() +" " + m_operations.getOperation(index).getOp2()+ " = ");
+        calcul.setText(m_operations.getOperation(index).getOp1() +" "+ m_operations.getType() +" " + m_operations.getOperation(index).getOp2()+ " = "); // affiche le calcul
         defaultColor = resView.getTextColors();
 
         userC = ((MyApplication) this.getApplication()).getUserCourrant();
@@ -57,16 +61,14 @@ public class MathsEx2Activity extends AppCompatActivity {
         EditText resView = findViewById(R.id.ex2Res);
         String resString = resView.getText().toString();
         int res;
+
+        //Mise en forme du résultat
         if(resString.matches("")){
             res = -1;
         }else{
             res = Integer.parseInt(resString);
         }
-        //if(m_operations.getOperation(index).Correction(res)){
-            //Toast.makeText(this, "Réussi", Toast.LENGTH_SHORT).show();
-        //} else{
-            //Toast.makeText(this, "Raté", Toast.LENGTH_SHORT).show();
-        //}
+
         m_operations.setRes(index, res);
         index++;
         maj();
@@ -89,14 +91,12 @@ public class MathsEx2Activity extends AppCompatActivity {
     }
 
 
+    //Verification de la position
     public void maj(){
         EditText resView = findViewById(R.id.ex2Res);
-        TextView calculView = findViewById(R.id.ex2Req);
-        TextView indexView = findViewById(R.id.index);
         resView.setTextColor(defaultColor);
         if(index <10) {
-            correct();
-
+            majGraph();
         } else{
             m_operations.correction();
             int erreur = m_operations.getNbErreurs();
@@ -127,17 +127,17 @@ public class MathsEx2Activity extends AppCompatActivity {
         return false;
     };
 
-    public void correct (){
+    public void majGraph(){
         EditText resView = findViewById(R.id.ex2Res);
         TextView calculView = findViewById(R.id.ex2Req);
         TextView indexView = findViewById(R.id.index);
         resView.setTextColor(defaultColor);
             if(m_operations.existe(index) && m_operations.getResAt(index)!=-1){
                 resView.setText(String.valueOf(m_operations.getResAt(index)));
-                if(!m_operations.getOperation(index).Correction(m_operations.getResAt(index)) && correction == true){
+                if(!m_operations.getOperation(index).Correction(m_operations.getResAt(index)) && mode_correction == true){
                     resView.setTextColor(Color.RED);
                     majIndex();
-                } else if (m_operations.getOperation(index).Correction(m_operations.getResAt(index)) && correction == true){
+                } else if (m_operations.getOperation(index).Correction(m_operations.getResAt(index)) && mode_correction == true){
                     resView.setTextColor(Color.GREEN);
                     majIndex();
                 }
@@ -153,12 +153,12 @@ public class MathsEx2Activity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(fin){
-            correction = true;
+            mode_correction = true;
 
             View modeCorrection = findViewById(R.id.mode_correction);
             modeCorrection.setVisibility(View.VISIBLE);
 
-            correct();
+            majGraph();
             majIndex();
         }
 

@@ -41,14 +41,14 @@ public class CultureExo1Activity extends AppCompatActivity {
         index =0;
         m_quizz = new Quizz();
         EditText resView = findViewById(R.id.CEx1Res);
-        ImageView drapeau = findViewById(R.id.drapeau);
 
+        //affichage du drapeau à l'index actuel
+        ImageView drapeau = findViewById(R.id.drapeau);
         String ressourceName = m_quizz.getDrapeau(index);
         int resID = getResources().getIdentifier(ressourceName , "drawable", this.getPackageName());
         drapeau.setImageResource(resID);
+
         defaultColor = resView.getTextColors();
-        TextView drap = findViewById(R.id.Exercice1);
-        drap.setText(ressourceName);
 
         userC = ((MyApplication) this.getApplication()).getUserCourrant();
         mDb = DatabaseClient.getInstance(getApplicationContext());
@@ -72,14 +72,15 @@ public class CultureExo1Activity extends AppCompatActivity {
         }
     }
 
+    //Verification de la position, soit lancé la fin de l'activité soit la mise à jour graphique
     public void maj(){
+
+        //Utile dans le mode correction
         EditText resView = findViewById(R.id.CEx1Res);
-        TextView calculView = findViewById(R.id.ex2Req);
-        TextView indexView = findViewById(R.id.index);
         resView.setTextColor(defaultColor);
+
         if(index <10) {
             majGraph();
-
         } else{
             int erreur = m_quizz.getNbErreurs();
             if(erreur>0){
@@ -98,6 +99,7 @@ public class CultureExo1Activity extends AppCompatActivity {
         }
     }
 
+    //Utilisé dans le mode correction pour retirer la couleur lors de l'édition
     public boolean onKeyUp(int keyCode, android.view.KeyEvent event) {
         super.onKeyUp(keyCode, event);
         EditText resView = findViewById(R.id.CEx1Res);
@@ -105,12 +107,18 @@ public class CultureExo1Activity extends AppCompatActivity {
         return false;
     };
 
+    //Mise à jour graphique de la vue
     public void majGraph (){
+
         EditText resView = findViewById(R.id.CEx1Res);
         ImageView drapeau = findViewById(R.id.drapeau);
         TextView indexView = findViewById(R.id.index);
         resView.setTextColor(defaultColor);
+
+        //affichage du resultat enregistré par le joueur à l'index
         resView.setText(m_quizz.getResAt(index));
+
+        //Lors du mode correction permet de mettre en couleur la réponse
         if(!m_quizz.correct(index) && mode_correction == true){
             resView.setTextColor(Color.RED);
             majIndex();
@@ -123,14 +131,16 @@ public class CultureExo1Activity extends AppCompatActivity {
             resView.setText("");
         }
 
+        // affichage de l'image du drapeau a l'index
         String ressourceName = m_quizz.getDrapeau(index);
         int resID = getResources().getIdentifier(ressourceName , "drawable", this.getPackageName());
         drapeau.setImageResource(resID);
+
         indexView.setText(String.valueOf(index+1) + "/10");
-        TextView drap = findViewById(R.id.Exercice1);
-        drap.setText(ressourceName);
+
     }
 
+    //active le mode correction
     @Override
     protected void onStart() {
         super.onStart();
@@ -143,6 +153,7 @@ public class CultureExo1Activity extends AppCompatActivity {
         }
     }
 
+    //Dans le mode correction affiche et met à jour dans le mode correction une liste des index coloré en fonction du resultat  à la question
     public void majIndex(){
         LinearLayout indexTview = findViewById(R.id.indexT);
         indexTview.removeAllViews();
@@ -163,7 +174,6 @@ public class CultureExo1Activity extends AppCompatActivity {
     }
 
     private void majScore() {
-
         final int Score = m_quizz.getNbReps();
 
         /**
