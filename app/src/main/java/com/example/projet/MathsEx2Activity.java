@@ -42,10 +42,12 @@ public class MathsEx2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maths_ex2);
 
+        //Récuperation des choix de l'utilisateur
         type = getIntent().getCharExtra(TYPE,'+');
         ordre = getIntent().getIntExtra(ORDRE,0);
 
-        //Creation d'une liste de 10 operations
+
+        //Creation Création de la liste d'operation
         m_operations = new Operations(ordre, type);
 
         TextView calcul = findViewById(R.id.ex2Req);
@@ -62,7 +64,7 @@ public class MathsEx2Activity extends AppCompatActivity {
         String resString = resView.getText().toString();
         int res;
 
-        //Mise en forme du résultat
+        //Mise en forme du résultat avant de l'ajouter dans le modèle
         if(resString.matches("")){
             res = -1;
         }else{
@@ -127,11 +129,13 @@ public class MathsEx2Activity extends AppCompatActivity {
         return false;
     };
 
+    //Gère toute la mise à jour graphique de la vue
     public void majGraph(){
         EditText resView = findViewById(R.id.ex2Res);
         TextView calculView = findViewById(R.id.ex2Req);
         TextView indexView = findViewById(R.id.index);
         resView.setTextColor(defaultColor);
+            //affiche le resultat et lui donne une couleur dans le mode correction
             if(m_operations.existe(index) && m_operations.getResAt(index)!=-1){
                 resView.setText(String.valueOf(m_operations.getResAt(index)));
                 if(!m_operations.getOperation(index).Correction(m_operations.getResAt(index)) && mode_correction == true){
@@ -149,6 +153,8 @@ public class MathsEx2Activity extends AppCompatActivity {
             indexView.setText(String.valueOf(index+1) + "/10");
     }
 
+
+    //Initialisation du mode correction
     @Override
     protected void onStart() {
         super.onStart();
@@ -164,9 +170,12 @@ public class MathsEx2Activity extends AppCompatActivity {
 
     }
 
+    //affiche une liste de numéro de question dans le mode correction
     public void majIndex(){
         LinearLayout indexTview = findViewById(R.id.indexT);
         indexTview.removeAllViews();
+
+        //Création de la liste de numéro
         for (int i=0;i<10;i++){
 
             LinearLayout indexTemplate = (LinearLayout)getLayoutInflater().inflate(R.layout.template_index, null);

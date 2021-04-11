@@ -6,6 +6,8 @@ import java.util.Random;
 
 public class Quizz {
 
+
+    //Liste de tous les drapeaux possible
     private ArrayList<String> drapeaux = new ArrayList<String>() {{
 
         add("france");

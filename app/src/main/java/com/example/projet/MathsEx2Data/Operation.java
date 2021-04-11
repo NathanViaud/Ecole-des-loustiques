@@ -9,10 +9,16 @@ public class Operation {
     private int op2;
     private int operande;
 
+
+    // Création d'une opération avec un type et un ordre d'opérande
     public Operation(int operande, char type){
         this.operande = operande;
+
+        //Création des opérandes en fonction de l'ordre
         this.op1 = getRandomNumberInRange(1, operande);
         this.op2 = getRandomNumberInRange(1, operande);
+
+        //Pas de résultat négatif en cas de soustraction
         if(this.op2 > this.op1){
             int sauv = op1;
             op1 = op2;

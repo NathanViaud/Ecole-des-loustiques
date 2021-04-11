@@ -1,4 +1,6 @@
 package com.example.projet.MathsEx2Data;
+import android.view.inputmethod.CorrectionInfo;
+
 import com.example.projet.MathsEx2Data.Operation;
 
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ public class Operations {
     private final ArrayList<Integer> u_res = new ArrayList<>();
     private final char type;
 
+
+    //Création d'une liste de 10 Operations
     public Operations(int operande, char type){
         this.operande = operande;
         this.type = type;
@@ -26,6 +30,7 @@ public class Operations {
     }
 
 
+    //Correction du modèle
     public void correction(){
         nb_erreurs = 0;
         for(int i =0;i<m_operations.size();i++){
@@ -33,11 +38,6 @@ public class Operations {
                 nb_erreurs++;
             }
         }
-    }
-
-    public void addRes(int res){
-        u_res.add(res);
-        this.size ++;
     }
 
     public boolean existe(int i){
@@ -51,6 +51,11 @@ public class Operations {
     public int getNbReps(){
         return m_operations.size()-this.nb_erreurs;
     }
+
+    /*
+    Permet de ne pas faire la différence entre ajouter une valeur
+    si aucune n'as été renseignée et simplement changer la valeur à l'index si elle existe déjà
+     */
 
     public void setRes(int index, int res){
         try {
