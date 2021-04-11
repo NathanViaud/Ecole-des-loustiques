@@ -29,7 +29,7 @@ public class MathsExo1FelActivity extends AppCompatActivity {
         retourExo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MathsExo1FelActivity.this, MainActivity.class);
+                Intent intent = new Intent(MathsExo1FelActivity.this, JouerActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

@@ -35,7 +35,7 @@ public class MathsExo1ErreurActivity extends AppCompatActivity {
         chgTbl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MathsExo1ErreurActivity.this, MathsExo1Activity.class);
+                Intent intent = new Intent(MathsExo1ErreurActivity.this, JouerActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

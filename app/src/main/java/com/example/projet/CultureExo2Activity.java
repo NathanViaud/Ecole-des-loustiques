@@ -76,11 +76,7 @@ public class CultureExo2Activity extends AppCompatActivity {
     public void Precedent(View view){
         maj();
         index--;
-        if (index < 0){
-            finish();
-        } else {
-            getQuestionsRep();
-        }
+        getQuestionsRep();
     }
 
     public void maj(){
