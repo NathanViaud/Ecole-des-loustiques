@@ -80,13 +80,13 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100"
-                    android:id="@+id/cent"/>
+                    android:text="50"
+                    android:id="@+id/cinquante"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000"
-                    android:id="@+id/mille"/>
+                    android:text="100"
+                    android:id="@+id/cent"/>
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>

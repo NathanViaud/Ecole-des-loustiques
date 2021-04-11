@@ -23,26 +23,22 @@ public class MathsEx2Selection extends AppCompatActivity {
 
 
         RadioButton bDix = findViewById(R.id.dix);
+        RadioButton bCinquante = findViewById(R.id.cinquante);
         RadioButton bCent = findViewById(R.id.cent);
-        RadioButton bMille = findViewById(R.id.mille);
 
         RadioButton bPlus = findViewById(R.id.plus);
         RadioButton bMoins = findViewById(R.id.moins);
         RadioButton bFois = findViewById(R.id.fois);
         RadioButton bDiv = findViewById(R.id.div);
 
-        final int  dix = bDix.getId();
-        final int cent = bCent.getId();
-        final int mille = bMille.getId();
-
 
 
         if (bDix.isChecked()){
             ordre = 10;
+        } else if(bCinquante.isChecked()){
+            ordre = 50;
         } else if(bCent.isChecked()){
             ordre = 100;
-        } else if(bMille.isChecked()){
-            ordre = 1000;
         }
 
         if (bPlus.isChecked()){
